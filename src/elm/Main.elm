@@ -3,6 +3,8 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing ( onClick )
 import Components.Question exposing (Question)
+import Components.QuestionSet exposing (Msg, fetchAll)
+import Components.QuestionUpdate 
 
 
 
@@ -11,7 +13,8 @@ type alias Model =
   { showDialog : Bool,
     answerVisible: Bool,
     prizeVisible : Bool,
-    currentQuestion : Question
+    currentQuestion : Question,
+    questions : List Question
   }
 
 type Msg 
@@ -19,23 +22,29 @@ type Msg
   | CloseModal
   | ShowAnswer
   | ShowPrize
+  | QuestionsMsg Components.QuestionSet.Msg
   | NoOp
 
 
 -- Initial State
+placeholder : Question
+placeholder =
+  {
+    id = "0"
+    , name = "How many licks to the center of a tootsie pop?"
+    , answer = "50000"
+    , prize = 1
+  }
+
 
 init : (Model, Cmd Msg)
 init = ({  
     showDialog = False
     , answerVisible = False
     , prizeVisible = False
-    , currentQuestion = {
-         id = "0"
-        , name = "How many licks to the center of a tootsie pop?"
-        , answer = "50000"
-        , prize = 1
-      }
-    }, Cmd.none)
+    , currentQuestion = placeholder
+    , questions = [placeholder]  
+    }, Cmd.map QuestionsMsg fetchAll)
 
 
 
@@ -51,6 +60,12 @@ update msg model =
       ({ model | answerVisible = True, prizeVisible = False  }, Cmd.none)
     ShowPrize ->
       ({ model | answerVisible = False, prizeVisible = True }, Cmd.none)
+    QuestionsMsg subMsg ->
+      let
+          ( updatedQuestions, cmd ) =
+              Components.QuestionUpdate.update subMsg model.questions
+      in
+          ( { model | questions = updatedQuestions }, Cmd.map QuestionsMsg cmd )
     NoOp -> (model, Cmd.none)
 
 -- SUBSCRIPTIONS

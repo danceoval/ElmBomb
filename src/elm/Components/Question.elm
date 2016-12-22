@@ -15,10 +15,3 @@ type alias Question =
     }
 
 
-new : Question
-new =
-    { id = "0"
-    , name = "How many licks to the center of a tootsie pop?"
-    , answer = "50000"
-    , prize = 1
-    }
