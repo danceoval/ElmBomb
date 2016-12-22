@@ -6,12 +6,14 @@ import Dialog
 
 -- MODEL
 type alias Model =
-  { showDialog : Bool
+  { showDialog : Bool,
+    answerVisible : Bool
   }
 
 type Msg 
   = OpenModal
   | CloseModal
+  | ShowAnswer
   | NoOp
 
 
@@ -19,7 +21,7 @@ type Msg
 
 init : (Model, Cmd Msg)
 init = 
-  ({showDialog = False}, Cmd.none)
+  ({showDialog = False, answerVisible = False}, Cmd.none)
 
 
 
@@ -28,9 +30,11 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     OpenModal ->
-      ({ model | showDialog = True }, Cmd.none)
+      ({ model | showDialog = True, answerVisible = False }, Cmd.none)
     CloseModal ->
       ({ model | showDialog = False }, Cmd.none)
+    ShowAnswer -> 
+      ({ model | answerVisible = True }, Cmd.none)
     NoOp -> (model, Cmd.none)
 
 -- SUBSCRIPTIONS
@@ -45,7 +49,7 @@ view model =
     div [ id "gameboard", style [("margin-top", "30px"), ( "text-align", "center" ), ("background-image", "url(static/img/pyramid.jpg)")] ][
       div [class "row"] [
         h1 [ id "title"] [ text ("SphynxQuest")],
-        div [class "col-md-4 question"] [
+        div [class "col-md-4 question", onClick OpenModal] [
           img [class "img-responsive", src "static/img/sphynxsprite.png", onClick OpenModal] []
         ]
       ]
@@ -55,7 +59,11 @@ view model =
         Just { closeMessage = Just CloseModal
               ,containerClass = Nothing
               , body = Just (div [ class "modal-body", id "myModalBody"] [
-                  p [] [ text ("(Click to reveal Answer)")]
+                  ( if model.answerVisible then
+                      p [] [ text ("The Answer is Youu")]
+                    else
+                      p [(onClick ShowAnswer)] [ text ("(Click to reveal Answer)")]
+                  )
                 ])
               , header = Just ( 
                 h4 [class "modal-title", id "myModalLabel"] [
@@ -64,10 +72,8 @@ view model =
               , footer = Just (
                 div [ class "modal-footer"] [
                   span [ id "prizeimage"] [],
-                  div [ class "modal-footer"] [
-                    button [  class "btn btn-danger", id "returnButton"] [ text ("Return")],
-                    button [  class "btn btn-success", id "correctButton"] [ text ("Correct!")]
-                  ]
+                  button [  class "btn btn-danger", id "returnButton", onClick CloseModal] [ text ("Return")],
+                  button [  class "btn btn-success", id "correctButton"] [ text ("Correct!")]
                 ])
               }  
       else
