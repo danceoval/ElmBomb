@@ -11,10 +11,10 @@ type alias Model =
   { showModal : Bool
   }
 
-questionModal : {a | showModal : Bool} -> Html Msg
+
 questionModal model =
   if model.showModal
-    then div [class "modal fade", id "myModal"] [
+    then div [class "modal", id "myModal"] [
           div [ class "modal-dialog" ] [
             div [ class "modal-content"] [
               div [ class "modal-header"] [
