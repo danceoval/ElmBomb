@@ -2,28 +2,23 @@ module Components.Question exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing ( onClick )
+
+type alias QuestionId =
+    String
 
 
-questionModal model =
-  { closeMessage = Just CloseModal,
-  containerClass = "modal",
-  header = Just ( 
-            h4 [class "modal-title", id "myModalLabel"] [
-              text ("Question")
-            ]),
-  body = Just (
-          div [ class "modal-body", id "myModalBody"] [
-            p [] [ text ("(Click to reveal Answer)")]
-          ]),
-  footer = Just (
-            div [ class "modal-footer"] [
-              span [ id "prizeimage"] [],
-              div [ class "modal-footer"] [
-                button [  class "btn btn-danger", id "returnButton"] [ text ("Return")],
-                button [  class "btn btn-success", id "correctButton"] [ text ("Correct!")]
-              ]
-            ])
- 
-  }
-  
+type alias Question =
+    { id : QuestionId
+    , name : String
+    , answer : String
+    , prize : Int
+    }
+
+
+new : Question
+new =
+    { id = "0"
+    , name = "How many licks to the center of a tootsie pop?"
+    , answer = "50000"
+    , prize = 1
+    }
