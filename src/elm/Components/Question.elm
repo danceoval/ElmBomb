@@ -1,4 +1,4 @@
-module Components.QuestionModal exposing (..)
+module Components.Question exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

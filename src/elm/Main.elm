@@ -1,27 +1,35 @@
+import Dialog
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing ( onClick )
-import Dialog
 
 
--- MODEL
+
+-- MODELS
 type alias Model =
-  { showDialog : Bool,
-    answerVisible : Bool
+  { showDialog : Bool
   }
 
 type Msg 
   = OpenModal
   | CloseModal
-  | ShowAnswer
+  --| ShowAnswer
   | NoOp
+
+type alias Config msg =
+    { closeMessage : Maybe msg
+    , containerClass : Maybe String
+    , header : Maybe (Html msg)
+    , body : Maybe (Html msg)
+    , footer : Maybe (Html msg)
+    }
 
 
 -- Initial State
 
 init : (Model, Cmd Msg)
 init = 
-  ({showDialog = False, answerVisible = False}, Cmd.none)
+  ({showDialog = False}, Cmd.none)
 
 
 
@@ -30,17 +38,40 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     OpenModal ->
-      ({ model | showDialog = True, answerVisible = False }, Cmd.none)
+      ({ model | showDialog = True}, Cmd.none)
     CloseModal ->
       ({ model | showDialog = False }, Cmd.none)
-    ShowAnswer -> 
-      ({ model | answerVisible = True }, Cmd.none)
+    --ShowAnswer -> 
+    --  ({ model | answerVisible = True }, Cmd.none)
+    --ShowPrize ->
+    --  ({ model | answerVisible = True }, Cmd.none)
     NoOp -> (model, Cmd.none)
 
 -- SUBSCRIPTIONS
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.none
+
+-- Modal
+dialogConfig : Model -> Config Msg
+dialogConfig model =
+    { 
+      closeMessage = Just CloseModal,
+      containerClass = Nothing,
+      header = Just ( h4 [class "modal-title", id "myModalLabel"] [text ("Question")]),
+      body = Just ( div [ class "modal-body", id "myModalBody"] [
+                    p [] [ text ("(Click to reveal Answer)")]
+                  ]),
+      footer = Just (div [ class "modal-footer"] [
+                      span [ id "prizeimage"] [],
+                      div [ class "modal-footer"] [
+                        button [  class "btn btn-danger", id "returnButton", (onClick CloseModal)] [ text ("Return")],
+                        button [  class "btn btn-success", id "correctButton"] [ text ("Correct!")]
+                      ]
+                    ])
+ 
+      }
+
 
 -- VIEW
 view : Model -> Html Msg
@@ -56,26 +87,7 @@ view model =
     ],
     Dialog.view
       (if model.showDialog then
-        Just { closeMessage = Just CloseModal
-              ,containerClass = Nothing
-              , body = Just (div [ class "modal-body", id "myModalBody"] [
-                  ( if model.answerVisible then
-                      p [] [ text ("The Answer is Youu")]
-                    else
-                      p [(onClick ShowAnswer)] [ text ("(Click to reveal Answer)")]
-                  )
-                ])
-              , header = Just ( 
-                h4 [class "modal-title", id "myModalLabel"] [
-                  text ("Question")
-                ])
-              , footer = Just (
-                div [ class "modal-footer"] [
-                  span [ id "prizeimage"] [],
-                  button [  class "btn btn-danger", id "returnButton", onClick CloseModal] [ text ("Return")],
-                  button [  class "btn btn-success", id "correctButton"] [ text ("Correct!")]
-                ])
-              }  
+        Just (dialogConfig model)
       else
         Nothing
       )
