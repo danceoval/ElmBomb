@@ -7,29 +7,31 @@ import Html.Events exposing ( onClick )
 
 -- MODELS
 type alias Model =
-  { showDialog : Bool
+  { showDialog : Bool,
+    answerVisible: Bool
   }
 
 type Msg 
   = OpenModal
   | CloseModal
-  --| ShowAnswer
+  | ShowAnswer
   | NoOp
 
-type alias Config msg =
-    { closeMessage : Maybe msg
-    , containerClass : Maybe String
-    , header : Maybe (Html msg)
-    , body : Maybe (Html msg)
-    , footer : Maybe (Html msg)
-    }
+--type alias QuestionModal msg =
+--    { closeMessage : Maybe msg
+--    , containerClass : Maybe String
+--    , header : Maybe (Html msg)
+--    , body : Maybe (Html msg)
+--    , footer : Maybe (Html msg)
+--    , answerVisible : Bool
+--    }
 
 
 -- Initial State
 
 init : (Model, Cmd Msg)
 init = 
-  ({showDialog = False}, Cmd.none)
+  ({showDialog = False, answerVisible = False}, Cmd.none)
 
 
 
@@ -40,9 +42,9 @@ update msg model =
     OpenModal ->
       ({ model | showDialog = True}, Cmd.none)
     CloseModal ->
-      ({ model | showDialog = False }, Cmd.none)
-    --ShowAnswer -> 
-    --  ({ model | answerVisible = True }, Cmd.none)
+      ({ model | showDialog = False, answerVisible = False }, Cmd.none)
+    ShowAnswer -> 
+      ({ model | answerVisible = True }, Cmd.none)
     --ShowPrize ->
     --  ({ model | answerVisible = True }, Cmd.none)
     NoOp -> (model, Cmd.none)
@@ -53,14 +55,17 @@ subscriptions model =
   Sub.none
 
 -- Modal
-dialogConfig : Model -> Config Msg
+dialogConfig : Model -> Dialog.Config Msg
 dialogConfig model =
     { 
       closeMessage = Just CloseModal,
       containerClass = Nothing,
       header = Just ( h4 [class "modal-title", id "myModalLabel"] [text ("Question")]),
       body = Just ( div [ class "modal-body", id "myModalBody"] [
-                    p [] [ text ("(Click to reveal Answer)")]
+                    if model.answerVisible then
+                      p [] [ text ("(The answer is youuu)")]
+                    else
+                      p [onClick ShowAnswer] [ text ("(Click to reveal Answer)")]
                   ]),
       footer = Just (div [ class "modal-footer"] [
                       span [ id "prizeimage"] [],
@@ -69,8 +74,7 @@ dialogConfig model =
                         button [  class "btn btn-success", id "correctButton"] [ text ("Correct!")]
                       ]
                     ])
- 
-      }
+    }
 
 
 -- VIEW
