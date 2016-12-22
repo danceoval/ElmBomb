@@ -81,6 +81,17 @@ mapPrize int =
 mapPrizes : Int -> Html Msg
 mapPrizes int = 
   div [] (List.map mapPrize (List.range 1 int))
+
+mapIcon : Question -> Html Msg
+mapIcon question =
+  div [class "col-md-4 question", onClick OpenModal] [
+    h1 [] [text(question.id)],
+    img [class "img-responsive", src "static/img/sphynxsprite.png", onClick OpenModal] []
+  ]
+
+mapIcons : List Question -> Html Msg
+mapIcons questions = 
+  div [] (List.map mapIcon questions)  
   
   
 
@@ -96,7 +107,6 @@ dialogConfig model =
                     if model.answerVisible then
                       p [] [ text (model.currentQuestion.answer)]
                     else if model.prizeVisible then
-                      --p [] [ text ("Prize!!")]
                       mapPrizes model.currentQuestion.prize
                     else
                       p [onClick ShowAnswer] [ text ("(Click to reveal Answer)")]
@@ -118,9 +128,7 @@ view model =
     div [ id "gameboard", style [("margin-top", "30px"), ( "text-align", "center" ), ("background-image", "url(static/img/pyramid.jpg)")] ][
       div [class "row"] [
         h1 [ id "title"] [ text ("SphynxQuest")],
-        div [class "col-md-4 question", onClick OpenModal] [
-          img [class "img-responsive", src "static/img/sphynxsprite.png", onClick OpenModal] []
-        ]
+        mapIcons model.questions
       ]
     ],
     Dialog.view
