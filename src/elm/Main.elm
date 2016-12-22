@@ -1,46 +1,44 @@
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing ( onClick )
-import Components.QuestionModal exposing ( questionModal )
-
-
--- APP
-main : Program Never Model Msg
-main =
-  Html.beginnerProgram { model = model, view = view, update = update }
+import Dialog
 
 
 -- MODEL
 type alias Model =
-  { showModal : Bool
+  { showDialog : Bool
   }
 
-
-model : Model
-model =  
-  { showModal = True
-  }
-
-
--- UPDATE
 type Msg 
   = OpenModal
   | CloseModal
   | NoOp
 
-update : Msg -> Model -> Model
+
+-- Initial State
+
+init : (Model, Cmd Msg)
+init = 
+  ({showDialog = False}, Cmd.none)
+
+
+
+-- UPDATE
+update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     OpenModal ->
-      { model | showModal = True }
+      ({ model | showDialog = True }, Cmd.none)
     CloseModal ->
-      { model | showModal = False }
-    NoOp -> model
+      ({ model | showDialog = False }, Cmd.none)
+    NoOp -> (model, Cmd.none)
 
+-- SUBSCRIPTIONS
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  Sub.none
 
 -- VIEW
--- Html is defined as: elem [ attribs ][ children ]
--- CSS can be applied via class names or inline style attrib
 view : Model -> Html Msg
 view model =
   div [ class "container" ] [
@@ -52,9 +50,35 @@ view model =
         ]
       ]
     ],
-    questionModal model
-  ]
-  
+    Dialog.view
+      (if model.showDialog then
+        Just { closeMessage = Just CloseModal
+              ,containerClass = Nothing
+              , body = Just (div [ class "modal-body", id "myModalBody"] [
+                  p [] [ text ("(Click to reveal Answer)")]
+                ])
+              , header = Just ( 
+                h4 [class "modal-title", id "myModalLabel"] [
+                  text ("Question")
+                ])
+              , footer = Just (
+                div [ class "modal-footer"] [
+                  span [ id "prizeimage"] [],
+                  div [ class "modal-footer"] [
+                    button [  class "btn btn-danger", id "returnButton"] [ text ("Return")],
+                    button [  class "btn btn-success", id "correctButton"] [ text ("Correct!")]
+                  ]
+                ])
+              }  
+      else
+        Nothing
+      )
+    ]
 
+
+-- APP
+main : Program Never Model Msg
+main =
+  Html.program { init = init, view = view, update = update, subscriptions = subscriptions}
 
 
