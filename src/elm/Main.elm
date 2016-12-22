@@ -1,32 +1,41 @@
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing ( onClick )
-
--- component import example
-import Components.Hello exposing ( hello )
+import Components.QuestionModal exposing ( questionModal )
 
 
 -- APP
-main : Program Never Int Msg
+main : Program Never Model Msg
 main =
   Html.beginnerProgram { model = model, view = view, update = update }
 
 
 -- MODEL
-type alias Model = Int
+type alias Model =
+  { showModal : Bool
+  }
 
-model : number
-model = 0
+
+model : Model
+model =  
+  { showModal = True
+  }
 
 
 -- UPDATE
-type Msg = NoOp | Increment
+type Msg 
+  = OpenModal
+  | CloseModal
+  | NoOp
 
 update : Msg -> Model -> Model
 update msg model =
   case msg of
+    OpenModal ->
+      { model | showModal = True }
+    CloseModal ->
+      { model | showModal = False }
     NoOp -> model
-    Increment -> model + 1
 
 
 -- VIEW
@@ -34,29 +43,18 @@ update msg model =
 -- CSS can be applied via class names or inline style attrib
 view : Model -> Html Msg
 view model =
-  div [ class "container", style [("margin-top", "30px"), ( "text-align", "center" )] ][    -- inline CSS (literal)
-    div [ class "row" ][
-      div [ class "col-xs-12" ][
-        div [ class "jumbotron" ][
-          img [ src "static/img/elm.jpg", style styles.img ] []                             -- inline CSS (via var)
-          , hello model                                                                     -- ext 'hello' component (takes 'model' as arg)
-          , p [] [ text ( "Elm Webpack Starter" ) ]
-          , button [ class "btn btn-primary btn-lg", onClick Increment ] [                  -- click handler
-            span[ class "glyphicon glyphicon-star" ][]                                      -- glyphicon
-            , span[][ text "FTW!" ]
-          ]
+  div [ class "container" ] [
+    div [ id "gameboard", style [("margin-top", "30px"), ( "text-align", "center" ), ("background-image", "url(static/img/pyramid.jpg)")] ][
+      div [class "row"] [
+        h1 [ id "title"] [ text ("SphynxQuest")],
+        div [class "col-md-4 question"] [
+          img [class "img-responsive", src "static/img/sphynxsprite.png", onClick OpenModal] []
         ]
       ]
-    ]
+    ],
+    questionModal model
   ]
+  
 
 
--- CSS STYLES
-styles : { img : List ( String, String ) }
-styles =
-  {
-    img =
-      [ ( "width", "33%" )
-      , ( "border", "4px solid #337AB7")
-      ]
-  }
+

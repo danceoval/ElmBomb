@@ -2,7 +2,9 @@ module Components.Hello exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import String
+import Html.Events exposing ( onClick )
+import Signal
+
 
 -- hello component
 hello : Int -> Html a
