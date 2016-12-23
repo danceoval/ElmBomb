@@ -2,7 +2,7 @@ import Dialog
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing ( onClick )
-import Components.Question exposing (Question, QuestionId)
+import Components.Question exposing (Question, QuestionId, FilterQuestion)
 import Components.QuestionSet exposing (Msg, fetchAll)
 import Components.QuestionUpdate 
 
@@ -16,13 +16,13 @@ type alias Model =
   }
 
 type Msg 
-  = OpenModal
-  | CloseModal
+  = CloseModal QuestionId
   | ShowAnswer
   | ShowPrize
   | SetQuestion QuestionId
   | QuestionsMsg Components.QuestionSet.Msg
   | NoOp
+
 
 
 -- Initial State
@@ -51,10 +51,12 @@ init = ({
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    OpenModal ->
-      ({ model | showDialog = True}, Cmd.none)
-    CloseModal ->
-      ({ model | showDialog = False, answerVisible = False, prizeVisible = False  }, Cmd.none)
+    CloseModal questionId ->
+      let 
+        -- Fake question to filter against
+        qs = List.filter (\q -> q.id /= questionId) model.questions
+      in
+        ({ model | showDialog = False, answerVisible = False, prizeVisible = False, questions = qs  }, Cmd.none)
     ShowAnswer -> 
       ({ model | answerVisible = True, prizeVisible = False  }, Cmd.none)
     ShowPrize ->
@@ -106,12 +108,13 @@ searchQuestionByKey (questionId, questions) =
       item
     else
       searchQuestionByKey (questionId, (List.drop 1 questionsCopy))
+   
 
 -- Modal
 dialogConfig : Model -> Dialog.Config Msg
 dialogConfig model =
     { 
-      closeMessage = Just CloseModal,
+      closeMessage = Just (CloseModal model.currentQuestion.id),
       containerClass = Nothing,
       header = Just ( h4 [class "modal-title", id "myModalLabel"] [text (model.currentQuestion.name)]),
       body = Just ( div [ class "modal-body", id "myModalBody"] [
@@ -125,7 +128,7 @@ dialogConfig model =
       footer = Just (div [ class "modal-footer"] [
                       span [ id "prizeimage"] [],
                       div [ class "modal-footer"] [
-                        button [  class "btn btn-danger", id "returnButton", (onClick CloseModal)] [ text ("Return")],
+                        button [  class "btn btn-danger", id "returnButton", (onClick (CloseModal model.currentQuestion.id))] [ text ("Return")],
                         button [  class "btn btn-success", id "correctButton", (onClick ShowPrize)] [ text ("Correct!")]
                       ]
                     ])

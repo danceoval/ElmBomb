@@ -15,3 +15,9 @@ type alias Question =
     }
 
 
+type alias FilterQuestion =
+  { id : Maybe QuestionId
+    , name : Maybe String
+    , answer : Maybe String
+    , prize : Maybe Int
+    }
