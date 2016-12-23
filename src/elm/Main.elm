@@ -8,7 +8,10 @@ import Components.QuestionUpdate
 
 -- MODELS
 type alias Model =
-  { showDialog : Bool,
+  { 
+    openingMovie : Bool,
+    slide : Int,
+    showDialog : Bool,
     answerVisible: Bool,
     prizeVisible : Bool,
     currentQuestion : Question,
@@ -16,7 +19,8 @@ type alias Model =
   }
 
 type Msg 
-  = CloseModal QuestionId
+  = IncrementSlide
+  |CloseModal QuestionId
   | ShowAnswer
   | ShowPrize
   | SetQuestion QuestionId
@@ -25,32 +29,15 @@ type Msg
 
 
 
--- Initial State
-placeholder : Question
-placeholder =
-  {
-    id = 0
-    , name = "How many licks to the center of a tootsie pop?"
-    , answer = "50000"
-    , prize = 1
-  }
-
-
-init : (Model, Cmd Msg)
-init = ({  
-    showDialog = False
-    , answerVisible = False
-    , prizeVisible = False
-    , currentQuestion = placeholder
-    , questions = [placeholder]  
-    }, Cmd.map QuestionsMsg fetchAll)
-
-
-
 -- UPDATE
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
+    IncrementSlide ->
+      if (model.slide + 1 > 4) then 
+        ({model | openingMovie = False}, Cmd.none)
+      else 
+        ({model | slide = model.slide + 1}, Cmd.none)  
     CloseModal questionId ->
       let 
         filteredQuestions = List.filter (\q -> q.id /= questionId) model.questions
@@ -133,19 +120,26 @@ dialogConfig model =
 view : Model -> Html Msg
 view model =
   div [ class "container" ] [
-    div [ id "gameboard", style [("margin-top", "30px"), ( "text-align", "center" ), ("background-image", "url(static/img/pyramid.jpg)")] ][
-      div [class "row"] [
-        let
-          titleTxt = 
-            if (List.length model.questions == 0)
-              then 
-                "Game Over!"
-            else
-              "SphynxQuest"    
-        in  
-          h1 [ class "title"] [ text (titleTxt)],
-        mapIcons model.questions
-      ]
+    div [] [
+      if (model.openingMovie /= True) then
+        div [ id "gameboard", style [("margin-top", "30px"), ( "text-align", "center" ), ("background-image", "url(static/img/pyramid.jpg)")] ][
+          div [class "row"] [
+            let
+              titleTxt = 
+                if (List.length model.questions == 0)
+                  then 
+                    "Game Over!"
+                else
+                  "SphynxQuest"    
+            in  
+              h1 [ class "title"] [ text (titleTxt)],
+            mapIcons model.questions
+          ]
+        ]
+      else 
+        div [onClick IncrementSlide] [
+          h1 [] [text("This Movie Sucks")]
+        ]      
     ],
     Dialog.view
       (if model.showDialog then
@@ -155,6 +149,28 @@ view model =
       )
     ]
 
+
+-- Initial State
+placeholder : Question
+placeholder =
+  {
+    id = 0
+    , name = "How many licks to the center of a tootsie pop?"
+    , answer = "50000"
+    , prize = 1
+  }
+
+
+init : (Model, Cmd Msg)
+init = ({  
+    openingMovie = True
+    , slide = 1
+    , showDialog = False
+    , answerVisible = False
+    , prizeVisible = False
+    , currentQuestion = placeholder
+    , questions = [placeholder]  
+    }, Cmd.map QuestionsMsg fetchAll)
 
 -- APP
 main : Program Never Model Msg
