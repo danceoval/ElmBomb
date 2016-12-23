@@ -65,9 +65,9 @@ update msg model =
           ( updatedQuestions, cmd ) =
               Components.QuestionUpdate.update subMsg model.questions
       in
-          ( { model | score = 0, questions = updatedQuestions, cached = updatedQuestions }, Cmd.map QuestionsMsg cmd )
+          ( { model | questions = updatedQuestions, cached = updatedQuestions }, Cmd.map QuestionsMsg cmd )
     ResetGame ->
-      ({model | questions = model.cached }, Cmd.none)
+      ({model | score = 0, questions = model.cached }, Cmd.none)
     NoOp -> (model, Cmd.none)
 
 -- SUBSCRIPTIONS
