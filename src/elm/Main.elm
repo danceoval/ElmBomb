@@ -86,11 +86,15 @@ mapPrize int =
 
 mapPrizes : Int -> Html Msg
 mapPrizes int = 
-  div [] (List.map mapPrize (List.range 1 int))
-
+  if (int /= 0) then
+    div [] (List.map mapPrize (List.range 1 int))
+  else   
+    div [] [
+      img [id "death" ,src "static/img/death.GIF"] []
+    ]
 mapIcon : Question -> Html Msg
 mapIcon question =
-  div [class "col-md-4 question", onClick (SetQuestion question.id) ] [
+  div [class "col-md-3 question", onClick (SetQuestion question.id) ] [
     h1 [class "markerNo"] [text(toString question.id)],
     img [class "img-responsive", src "static/img/sphynxsprite.png"] []
   ]
@@ -139,7 +143,7 @@ view model =
             else
               "SphynxQuest"    
         in  
-          h1 [ id "title"] [ text (titleTxt)],
+          h1 [ class "title"] [ text (titleTxt)],
         mapIcons model.questions
       ]
     ],

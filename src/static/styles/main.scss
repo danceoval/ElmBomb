@@ -13,6 +13,11 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 	width: 100vw;
 }
 
+
+.question {
+	padding-left: 50px;
+   margin-bottom: 25px;
+}
 #sphynx img{
 	margin: 0 auto;
 }
@@ -20,6 +25,10 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 	position: absolute;
     top: 0;
     left: 4em;
+}
+
+#death {
+	width: 150px;
 }
 
 div.transbox
@@ -44,7 +53,7 @@ div.transbox
 
 #gameboard{
 	width: 95vw;
-	height: calc(100vw - 30px);
+	height: calc(100vh - 30px);
 	margin: 0 auto;
 }
 

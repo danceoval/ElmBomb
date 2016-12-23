@@ -30,6 +30,12 @@
 			"name": "What is the name of Tony Soprano's daughter?",
 		    "answer": "Meadow",
 		    "prize": 3
+		},
+		{
+			"id" : 6,
+			"name": "What pet did the Emperor Caligula appoint to the Roman Senate?",
+		   "answer": "His Horse, Incitatus",
+		   "prize": 0
 		}
 	]
 }
