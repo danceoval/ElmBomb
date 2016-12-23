@@ -36,6 +36,42 @@
 			"name": "What pet did the Emperor Caligula appoint to the Roman Senate?",
 		   "answer": "His Horse, Incitatus",
 		   "prize": 0
+		},
+		{
+			"id" : 7,
+			"name": "What is Alfred Nobel famous for inventing?",
+		   "answer": "Dynamite",
+		   "prize": 0
+		},
+		{
+			"id" : 8,
+			"name": "Who created the jazz-fusion double-album 'Bitches Brew'?",
+		   "answer": "Miles Davis",
+		   "prize": 5
+		},
+		{
+			"id" : 9,
+			"name": "How many US States have 'New' in their name?",
+		   "answer": "Four",
+		   "prize": 4
+		},
+		{
+			"id" : 10,
+			"name": "Who was the first person to win 2 Nobel Prizes?",
+		   "answer": "Marie Curie (Chemistry and Physics)",
+		   "prize": 1
+		},
+		{
+			"id" : 11,
+			"name": "Where did the brontosaurus live?",
+		   "answer": "Nowhere (fake dinosaur)",
+		   "prize": 2
+		},
+		{
+			"id" : 12,
+			"name": "Who protein exists in insect exoskeletons and Skittles?",
+		   "answer": "Chitin",
+		   "prize": 3
 		}
 	]
 }

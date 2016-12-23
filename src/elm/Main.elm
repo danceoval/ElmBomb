@@ -2,7 +2,7 @@ import Dialog
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing ( onClick )
-import Components.Question exposing (Question, QuestionId, FilterQuestion)
+import Components.Question exposing (Question, QuestionId)
 import Components.QuestionSet exposing (Msg, fetchAll)
 import Components.QuestionUpdate 
 import Array.Hamt as Array
@@ -16,14 +16,15 @@ type alias Model =
     answerVisible: Bool,
     prizeVisible : Bool,
     currentQuestion : Question,
-    questions : List Question
+    questions : List Question,
+    score : Int
   }
 
 type Msg 
   = IncrementSlide
   |CloseModal QuestionId
   | ShowAnswer
-  | ShowPrize
+  | ShowPrize Int
   | SetQuestion QuestionId
   | QuestionsMsg Components.QuestionSet.Msg
   | NoOp
@@ -46,8 +47,11 @@ update msg model =
         ({ model | showDialog = False, answerVisible = False, prizeVisible = False, questions = filteredQuestions  }, Cmd.none)
     ShowAnswer -> 
       ({ model | answerVisible = True, prizeVisible = False  }, Cmd.none)
-    ShowPrize ->
-      ({ model | answerVisible = False, prizeVisible = True }, Cmd.none)
+    ShowPrize int ->
+      if (int > 0) then
+        ({ model | answerVisible = False, prizeVisible = True, score = model.score + int }, Cmd.none)
+      else
+        ({ model | answerVisible = False, prizeVisible = True, score = 0 }, Cmd.none)
     SetQuestion questionId ->
       let setQ =
         List.head (List.filter (\q -> q.id == questionId) model.questions)
@@ -70,7 +74,7 @@ subscriptions model =
 -- UTILS
 mapPrize : Int -> Html Msg
 mapPrize int =
-  img [class "img-responsive", src "static/img/gem.gif"] []
+  img [src "static/img/gem.gif"] []
 
 mapPrizes : Int -> Html Msg
 mapPrizes int = 
@@ -78,6 +82,7 @@ mapPrizes int =
     div [] (List.map mapPrize (List.range 1 int))
   else   
     div [] [
+      h4 [] [text ("Lose All Points!")],
       img [id "death" ,src "static/img/death.GIF"] []
     ]
 mapIcon : Question -> Html Msg
@@ -99,7 +104,9 @@ selectScene int =
       "The adventurer with the most gems will become the Hero of Thebes and will be remembered for ages to come!",
       "So, can you defeat me?"]
   in 
-    h1 [class "title", style [("font-size", "4em")]] [text(Array.get int lines |> Maybe.withDefault "")]    
+    h1 [class "title", style [("font-size", "4em")]] [text(Array.get int lines |> Maybe.withDefault "")]   
+
+
    
 -- MODAL VIEW
 dialogConfig : Model -> Dialog.Config Msg
@@ -107,8 +114,8 @@ dialogConfig model =
     { 
       closeMessage = Just (CloseModal model.currentQuestion.id),
       containerClass = Nothing,
-      header = Just ( h4 [class "modal-title", id "myModalLabel"] [text (model.currentQuestion.name)]),
-      body = Just ( div [ class "modal-body", id "myModalBody"] [
+      header = Just ( h2 [] [text (model.currentQuestion.name)]),
+      body = Just ( div [] [
                     if model.answerVisible then
                       p [] [ text (model.currentQuestion.answer)]
                     else if model.prizeVisible then
@@ -116,11 +123,14 @@ dialogConfig model =
                     else
                       p [onClick ShowAnswer] [ text ("(Click to reveal Answer)")]
                   ]),
-      footer = Just (div [ class "modal-footer"] [
+      footer = Just (div [] [
                       span [ id "prizeimage"] [],
-                      div [ class "modal-footer"] [
+                      div [] [
                         button [  class "btn btn-danger", id "returnButton", (onClick (CloseModal model.currentQuestion.id))] [ text ("Return")],
-                        button [  class "btn btn-success", id "correctButton", (onClick ShowPrize)] [ text ("Correct!")]
+                        if (model.prizeVisible /= True) then
+                          button [  class "btn btn-success", id "correctButton", (onClick (ShowPrize model.currentQuestion.prize))] [ text ("Correct!")]
+                        else
+                          div [] []
                       ]
                     ])
     }
@@ -131,9 +141,7 @@ view : Model -> Html Msg
 view model =
   div [ class "container" ] [
     div [] [
-      div [class "audio" ] [
-      
-      ],
+      audio [src  "static/sfx/coinsound.mp3"] [],
       if (model.openingMovie /= True) then
         div [ class "board", style [("margin-top", "30px"), ( "text-align", "center" ), ("background-image", "url(static/img/pyramid.jpg)")] ][
           div [class "row"] [
@@ -147,7 +155,8 @@ view model =
             in  
               h1 [ class "title"] [ text (titleTxt)],
             mapIcons model.questions
-          ]
+          ],
+          h1 [] [text("Points: " ++ toString model.score)]
         ]
       else 
         div [class "board", style [("background-image", "url(static/img/sphinx.jpg)")], onClick IncrementSlide] [
@@ -178,11 +187,12 @@ init : (Model, Cmd Msg)
 init = ({  
     openingMovie = True
     , slide = 1
+    , score = 0
     , showDialog = False
     , answerVisible = False
     , prizeVisible = False
     , currentQuestion = placeholder
-    , questions = [placeholder]  
+    , questions = [placeholder] 
     }, Cmd.map QuestionsMsg fetchAll)
 
 -- APP
