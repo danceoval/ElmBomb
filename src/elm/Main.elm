@@ -125,13 +125,15 @@ dialogConfig model =
                   ]),
       footer = Just (div [] [
                       span [ id "prizeimage"] [],
-                      div [] [
-                        button [  class "btn btn-danger", id "returnButton", (onClick (CloseModal model.currentQuestion.id))] [ text ("Return")],
-                        if (model.prizeVisible /= True) then
-                          button [  class "btn btn-success", id "correctButton", (onClick (ShowPrize model.currentQuestion.prize))] [ text ("Correct!")]
-                        else
-                          div [] []
-                      ]
+                        if (model.answerVisible && not model.prizeVisible) then
+                          div [] [
+                            button [  class "btn btn-danger", id "returnButton", (onClick (CloseModal model.currentQuestion.id))] [ text ("Return")],
+                            button [  class "btn btn-success", id "correctButton", (onClick (ShowPrize model.currentQuestion.prize))] [ text ("Correct!")]
+                          ]
+                        else if model.prizeVisible then
+                          button [  class "btn btn-danger", id "returnButton", (onClick (CloseModal model.currentQuestion.id))] [ text ("Return")]
+                        else   
+                          div [] [] 
                     ])
     }
 
@@ -156,7 +158,7 @@ view model =
               h1 [ class "title"] [ text (titleTxt)],
             mapIcons model.questions
           ],
-          h1 [] [text("Points: " ++ toString model.score)]
+          h1 [] [text("Gems: " ++ toString model.score)]
         ]
       else 
         div [class "board", style [("background-image", "url(static/img/sphinx.jpg)")], onClick IncrementSlide] [
