@@ -5,6 +5,7 @@ import Html.Events exposing ( onClick )
 import Components.Question exposing (Question, QuestionId, FilterQuestion)
 import Components.QuestionSet exposing (Msg, fetchAll)
 import Components.QuestionUpdate 
+import Array.Hamt as Array
 
 -- MODELS
 type alias Model =
@@ -90,6 +91,15 @@ mapIcons : List Question -> Html Msg
 mapIcons questions = 
   div [] (List.map mapIcon questions)  
 
+selectScene : Int -> Html Msg
+selectScene int =
+  let lines = Array.fromList ["Hello young adventurers.",
+      "I am the legendary Sphinx, the terror of Thebes!",
+      "If you wish to defeat me, you must answer my riddles and collect precious gems.",
+      "The adventurer with the most gems will become the Hero of Thebes and will be remembered for ages to come!",
+      "So, can you defeat me?"]
+  in 
+    h1 [] [text(Array.get int lines |> Maybe.withDefault "")]    
    
 -- MODAL VIEW
 dialogConfig : Model -> Dialog.Config Msg
@@ -138,7 +148,7 @@ view model =
         ]
       else 
         div [onClick IncrementSlide] [
-          h1 [] [text("This Movie Sucks")]
+          selectScene model.slide
         ]      
     ],
     Dialog.view
