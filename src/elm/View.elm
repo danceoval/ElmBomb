@@ -26,10 +26,14 @@ mapPrizes int =
     ]
   else
     h3 [class "warning"] [text ("Teams Switch points!")]
+
+getLetter : Int -> String
+getLetter n =
+  String.slice (n - 1) n  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 mapIcon : Question -> Html Msg
-mapIcon question =
+mapIcon question = 
   div [class "col-md-3 question", onClick (SetQuestion question.id) ] [
-    h1 [class "markerNo"] [text(toString question.id)],
+    h1 [class "markerNo"] [text(getLetter question.id)],
     img [class "img-responsive", src "static/img/sphynxsprite.png"] []
   ]
 
@@ -114,8 +118,8 @@ view model =
               h1 [ class "title"] [ text (titleTxt)],
             mapIcons model.questions,
             if (List.length model.questions == 0) then
-              div [class "col-md-6 ", onClick ResetGame] [
-                div [class "orange", style [("width", "70%"), ("margin-left", "15%")]] [
+              div [] [
+                div [class "btn btn-warning", onClick ResetGame] [
                    h1 [class "white"] [ text ("RESET")] 
                 ]
               ]
