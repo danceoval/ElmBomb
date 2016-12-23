@@ -13,7 +13,7 @@
 			"id" : 2,
 			"name": "What number president was Abraham Lincoln?",
 		    "answer": "16th",
-		    "prize": 1},
+		    "prize": 99},
 		{
 			"id" : 3,
 			"name": "What part of the brain governs hunger, thirst and body temperature?",
@@ -65,7 +65,7 @@
 			"id" : 11,
 			"name": "Where did the brontosaurus live?",
 		   "answer": "Nowhere (fake dinosaur)",
-		   "prize": 2
+		   "prize": 99
 		},
 		{
 			"id" : 12,

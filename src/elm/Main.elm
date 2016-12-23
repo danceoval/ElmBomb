@@ -18,7 +18,9 @@ type alias Model =
     currentQuestion : Question,
     questions : List Question,
     cached : List Question,
-    score : Int
+    scoreRed : Int,
+    scoreBlue : Int,
+    turnRed : Bool
   }
 
 type Msg 
@@ -46,14 +48,23 @@ update msg model =
       let 
         filteredQuestions = List.filter (\q -> q.id /= questionId) model.questions
       in
-        ({ model | showDialog = False, answerVisible = False, prizeVisible = False, questions = filteredQuestions  }, Cmd.none)
+        ({ model | turnRed = not model.turnRed, showDialog = False, answerVisible = False, prizeVisible = False, questions = filteredQuestions  }, Cmd.none)
     ShowAnswer -> 
       ({ model | answerVisible = True, prizeVisible = False  }, Cmd.none)
     ShowPrize int ->
-      if (int > 0) then
-        ({ model | answerVisible = False, prizeVisible = True, score = model.score + int }, Cmd.none)
-      else -- Lose all points
-        ({ model | answerVisible = False, prizeVisible = True, score = 0 }, Cmd.none)
+      if int == 99 then 
+        ({ model | answerVisible = False, prizeVisible = True, scoreRed = model.scoreBlue, scoreBlue = model.scoreRed }, Cmd.none)
+      else   
+        if model.turnRed then 
+          if (int > 0) then
+            ({ model | answerVisible = False, prizeVisible = True, scoreRed = model.scoreRed + int }, Cmd.none)
+          else -- Lose all points
+            ({ model | answerVisible = False, prizeVisible = True, scoreRed = 0 }, Cmd.none)
+        else
+          if (int > 0) then
+            ({ model | answerVisible = False, prizeVisible = True, scoreBlue = model.scoreBlue + int }, Cmd.none)
+          else -- Lose all points
+            ({ model | answerVisible = False, prizeVisible = True, scoreBlue = 0 }, Cmd.none)     
     SetQuestion questionId ->
       let setQ =
         List.head (List.filter (\q -> q.id == questionId) model.questions)
@@ -67,7 +78,7 @@ update msg model =
       in
           ( { model | questions = updatedQuestions, cached = updatedQuestions }, Cmd.map QuestionsMsg cmd )
     ResetGame ->
-      ({model | score = 0, questions = model.cached }, Cmd.none)
+      ({model | scoreRed = 0, scoreBlue = 0, questions = model.cached }, Cmd.none)
     NoOp -> (model, Cmd.none)
 
 -- SUBSCRIPTIONS
@@ -82,13 +93,15 @@ mapPrize int =
 
 mapPrizes : Int -> Html Msg
 mapPrizes int = 
-  if (int /= 0) then
+  if (int /= 0 && int /= 99) then
     div [] (List.map mapPrize (List.range 1 int))
-  else   
+  else if int == 0 then 
     div [] [
       h4 [] [text ("Lose All Points!")],
       img [id "death" ,src "static/img/death.GIF"] []
     ]
+  else
+    h3 [class "warning"] [text ("Teams Switch points!")]
 mapIcon : Question -> Html Msg
 mapIcon question =
   div [class "col-md-3 question", onClick (SetQuestion question.id) ] [
@@ -165,7 +178,18 @@ view model =
             else
               div [] []  
           ],
-          h1 [] [text("Gems: " ++ toString model.score)]
+          div [ class "row"] [
+            div [class "col-md-6 "] [
+              div [class "red", style [("width", "70%"), ("margin-left", "15%")]] [
+                 h1 [class "white"] [ text ("GEMS: " ++ toString model.scoreRed)] 
+              ]
+            ],
+            div [class "col-md-6 "] [
+              div [class "blue", style [("width", "70%"),("margin-left", "15%")]] [
+                 h1 [class "white"] [ text ("GEMS: " ++ toString model.scoreBlue)] 
+              ]
+            ]
+          ]
         ]
       else 
         div [class "board", style [("background-image", "url(static/img/sphinx.jpg)")], onClick IncrementSlide] [
@@ -196,7 +220,9 @@ init : (Model, Cmd Msg)
 init = ({  
     openingMovie = True
     , slide = 1
-    , score = 0
+    , scoreRed = 0
+    , scoreBlue = 0
+    , turnRed = True
     , showDialog = False
     , answerVisible = False
     , prizeVisible = False
