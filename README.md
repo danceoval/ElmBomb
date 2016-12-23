@@ -1,4 +1,4 @@
-# SphynxQuest
+# SphinxQuest
 
 ## A quiz game in Elm
 
@@ -16,6 +16,10 @@ node api.js
 
 ### Client Side:
 In a seperate terminal
+```
+npm start
+```
+or for prod
 
 ```
 npm run build
