@@ -75,7 +75,7 @@ dialogConfig model =
           ],
           div [] [
             if model.prizeVisible then
-              mapPrize model.currentQuestion.prize
+              mapPrizes model.currentQuestion.prize
             else  
               mapChoices model.currentQuestion.choices 
           ]

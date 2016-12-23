@@ -8,7 +8,6 @@ type Msg
   | CloseModal QuestionId
   | SelectChoice String
   | Guess String
-  | ShowAnswer
   | SetQuestion QuestionId
   | QuestionsMsg Components.QuestionSet.Msg
   | ResetGame 

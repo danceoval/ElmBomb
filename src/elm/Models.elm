@@ -11,7 +11,6 @@ type alias Model =
     openingMovie : Bool,
     slide : Int,
     showDialog : Bool,
-    answerVisible: Bool,
     prizeVisible : Bool,
     currentQuestion : Question,
     questions : List Question,
@@ -44,7 +43,6 @@ init = ({
     , scoreBlue = 0
     , turnRed = True
     , showDialog = False
-    , answerVisible = False
     , prizeVisible = False
     , currentQuestion = placeholder
     , questions = [placeholder] 
