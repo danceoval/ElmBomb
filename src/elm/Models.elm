@@ -3,7 +3,6 @@ module Models exposing (..)
 import Messages exposing (Msg(..))
 import Components.Question exposing (Question, QuestionId)
 import Components.QuestionSet exposing (Msg, fetchAll)
-import Components.QuestionUpdate 
 
 
 -- MODELS
@@ -19,7 +18,8 @@ type alias Model =
     cached : List Question,
     scoreRed : Int,
     scoreBlue : Int,
-    turnRed : Bool
+    turnRed : Bool,
+    selectedChoice : String
   }
 
 
@@ -29,8 +29,10 @@ placeholder =
   {
     id = 0
     , name = "How many licks to the center of a tootsie pop?"
-    , answer = "50000"
+    , answer = "IDK"
+    , choices = ["Over 9000", "1", "IDK", "666"]
     , prize = 1
+
   }
 
 
@@ -47,4 +49,5 @@ init = ({
     , currentQuestion = placeholder
     , questions = [placeholder] 
     , cached = [placeholder]
+    , selectedChoice = ""
     }, Cmd.map QuestionsMsg fetchAll)  

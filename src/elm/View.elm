@@ -47,6 +47,12 @@ selectScene int =
   in 
     h1 [class "title", style [("font-size", "4em")]] [text(Array.get int lines |> Maybe.withDefault "")]   
 
+mapChoices : List String -> Html Msg
+mapChoices list =
+    fieldset [] (List.map (\str -> label [ style [("padding", "15px"),("margin-right", "2em")]] [ 
+        input [  style [("margin", ".75em")], type_ "radio", name "choice", value str, (onClick( SelectChoice str))] [], text(str)
+      ]) list)
+    
 
    
 -- MODAL VIEW
@@ -56,25 +62,33 @@ dialogConfig model =
       closeMessage = Just (CloseModal model.currentQuestion.id),
       containerClass = Nothing,
       header = Just ( h2 [] [text (model.currentQuestion.name)]),
-      body = Just ( div [] [
-                    if model.answerVisible then
-                      p [] [ text (model.currentQuestion.answer)]
-                    else if model.prizeVisible then
-                      mapPrizes model.currentQuestion.prize
-                    else
-                      p [onClick ShowAnswer] [ text ("(Click to reveal Answer)")]
-                  ]),
+      body = Just ( 
+        div [] [
+          div [] [
+            if not model.prizeVisible then
+              if (model.turnRed ) then
+                h3[class "red"] [text("Red Guesses")]
+              else
+                h3[class "blue"] [text("Blue Guesses")]  
+            else
+              div [] []    
+          ],
+          div [] [
+            if model.prizeVisible then
+              mapPrize model.currentQuestion.prize
+            else  
+              mapChoices model.currentQuestion.choices 
+          ]
+        ]
+      ),
       footer = Just (div [] [
                       span [ id "prizeimage"] [],
-                        if (model.answerVisible && not model.prizeVisible) then
-                          div [] [
-                            button [  class "btn btn-danger", id "returnButton", (onClick (CloseModal model.currentQuestion.id))] [ text ("Return")],
-                            button [  class "btn btn-success", id "correctButton", (onClick (ShowPrize model.currentQuestion.prize))] [ text ("Correct!")]
-                          ]
-                        else if model.prizeVisible then
-                          button [  class "btn btn-danger", id "returnButton", (onClick (CloseModal model.currentQuestion.id))] [ text ("Return")]
-                        else   
-                          div [] [] 
+                      div [] [
+                        if model.prizeVisible then
+                          button [  class "btn btn-action", (onClick (CloseModal model.currentQuestion.id))] [ text ("Return")]
+                        else  
+                          button [  class "btn btn-warning", (onClick (Guess model.selectedChoice))] [ text ("Guess")]
+                      ]
                     ])
     }
 

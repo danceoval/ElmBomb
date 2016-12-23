@@ -2,8 +2,6 @@ module Update exposing (..)
 
 import Messages exposing (Msg(..))
 import Models exposing (Model, placeholder)
-import Components.Question exposing (Question, QuestionId)
-import Components.QuestionSet exposing (Msg, fetchAll)
 import Components.QuestionUpdate 
 
 
@@ -20,23 +18,33 @@ update msg model =
       let 
         filteredQuestions = List.filter (\q -> q.id /= questionId) model.questions
       in
-        ({ model | turnRed = not model.turnRed, showDialog = False, answerVisible = False, prizeVisible = False, questions = filteredQuestions  }, Cmd.none)
+        ({ model | showDialog = False, answerVisible = False, prizeVisible = False, questions = filteredQuestions, selectedChoice = ""  }, Cmd.none)
+    SelectChoice str ->
+      ({model | selectedChoice = str }, Cmd.none)
     ShowAnswer -> 
       ({ model | answerVisible = True, prizeVisible = False  }, Cmd.none)
-    ShowPrize int ->
-      if int == 99 then 
-        ({ model | answerVisible = False, prizeVisible = True, scoreRed = model.scoreBlue, scoreBlue = model.scoreRed }, Cmd.none)
-      else   
-        if model.turnRed then 
-          if (int > 0) then
-            ({ model | answerVisible = False, prizeVisible = True, scoreRed = model.scoreRed + int }, Cmd.none)
-          else -- Lose all points
-            ({ model | answerVisible = False, prizeVisible = True, scoreRed = 0 }, Cmd.none)
+    Guess str ->
+      if str == model.currentQuestion.answer then
+        if (model.currentQuestion.prize /= 0 && model.currentQuestion.prize /= 99) then
+          --Red Scores
+          if model.turnRed then
+            ({model | prizeVisible = True, scoreRed = (model.scoreRed + model.currentQuestion.prize), turnRed = not model.turnRed}, Cmd.none)
+          -- Blue Scores
+          else 
+            ({model | prizeVisible = True, scoreBlue = (model.scoreBlue + model.currentQuestion.prize), turnRed = not model.turnRed}, Cmd.none)  
+        else if (model.currentQuestion.prize == 0) then
+          -- Red Bomb
+          if model.turnRed then
+            ({ model | answerVisible = False, prizeVisible = True, scoreRed = 0, turnRed = not model.turnRed }, Cmd.none) 
+          -- Blue Bomb
+          else
+            ({ model | answerVisible = False, prizeVisible = True, scoreBlue = 0, turnRed = not model.turnRed }, Cmd.none)  
         else
-          if (int > 0) then
-            ({ model | answerVisible = False, prizeVisible = True, scoreBlue = model.scoreBlue + int }, Cmd.none)
-          else -- Lose all points
-            ({ model | answerVisible = False, prizeVisible = True, scoreBlue = 0 }, Cmd.none)     
+          -- Switch points
+          ({ model | answerVisible = False, prizeVisible = True, scoreRed = model.scoreBlue, scoreBlue = model.scoreRed, turnRed = not model.turnRed}, Cmd.none)
+      else
+        -- No Points, Change turn
+        ({ model | turnRed = not model.turnRed }, Cmd.none)       
     SetQuestion questionId ->
       let setQ =
         List.head (List.filter (\q -> q.id == questionId) model.questions)

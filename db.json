@@ -4,73 +4,83 @@
 			"id" : 1,
 			"name": "What is the capital of Djibouti?",
 		    "answer": "Djibouti",
+		    "choices" : ["Damascus", "Djibouti", "Asmara", "Djoubet"],
 		    "points": "+3 Gems!",
-		    "sound": "js/sfx/coinsound.mp3",
-		    "gems": "true",
 		    "prize": 3
 		},
 		{
 			"id" : 2,
 			"name": "What number president was Abraham Lincoln?",
 		    "answer": "16th",
+		    "choices" : ["16th", "9th", "14th", "12th"],
 		    "prize": 99},
 		{
 			"id" : 3,
 			"name": "What part of the brain governs hunger, thirst and body temperature?",
-		    "answer": "The Hypothalamus",
+		    "answer": "Hypothalamus",
+		    "choices" : ["Cerebellum", "Medula", "Hypothalamus", "Thalamus"],
 		    "prize": 1},
 		{	
 			"id" : 4,
 			"name": "What is the name of Hamlet's girlfriend?",
 		    "answer": "Ophelia",
+		    "choices" : ["Gertrude", "Rosalind", "Ophelia", "Rosencrantz"],
 		    "prize": 4},
 		
 		{
 			"id" : 5,
 			"name": "What is the name of Tony Soprano's daughter?",
 		    "answer": "Meadow",
+		    "choices" : ["Adriana", "Carmella", "Livia", "Meadow"],
 		    "prize": 3
 		},
 		{
 			"id" : 6,
 			"name": "What pet did the Emperor Caligula appoint to the Roman Senate?",
-		   "answer": "His Horse, Incitatus",
+		   "answer": "Incitatus",
+		   "choices" : ["Ivanka", "Incitatus", "Horiatius", "Azrael"],
 		   "prize": 0
 		},
 		{
 			"id" : 7,
 			"name": "What is Alfred Nobel famous for inventing?",
 		   "answer": "Dynamite",
+		   "choices" : ["Rubber", "Perpetual Motion", "Polyurethane", "Dynamite"],
 		   "prize": 0
 		},
 		{
 			"id" : 8,
 			"name": "Who created the jazz-fusion double-album 'Bitches Brew'?",
 		   "answer": "Miles Davis",
+		   "choices": ["Lou Reed", "Charlie Parker", "Miles Davis", "Charles Mingus"],
 		   "prize": 5
 		},
 		{
 			"id" : 9,
 			"name": "How many US States have 'New' in their name?",
+			"choices" : ["Three", "Four", "Five", "Six"],
 		   "answer": "Four",
 		   "prize": 4
 		},
 		{
 			"id" : 10,
 			"name": "Who was the first person to win 2 Nobel Prizes?",
-		   "answer": "Marie Curie (Chemistry and Physics)",
-		   "prize": 1
+		  "answer": "Marie Curie",
+		  "choices" : ["Albert Einstein", "Barack Obama", "Marie Curie", "Linus Pauling"],
+		  "prize": 1
 		},
 		{
 			"id" : 11,
-			"name": "Where did the brontosaurus live?",
-		   "answer": "Nowhere (fake dinosaur)",
+			"name": "Which dinosaur was once considered illigitimate by mainstream science?",
+		   "answer": "Brontosaurus",
+		   "choices" : ["T-Rex", "Triceratops", "Brontosaurus", "Bracheosaurus"],
 		   "prize": 99
 		},
 		{
 			"id" : 12,
 			"name": "Who protein exists in insect exoskeletons and Skittles?",
 		   "answer": "Chitin",
+		   "choices" : ["Chitin", "Gelatin", "Glycogin", "B-alanine"],
 		   "prize": 3
 		}
 	]

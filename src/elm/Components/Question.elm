@@ -8,5 +8,6 @@ type alias Question =
     { id : QuestionId
     , name : String
     , answer : String
+    , choices : List String
     , prize : Int
     }

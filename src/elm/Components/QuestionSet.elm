@@ -25,8 +25,9 @@ collectionDecoder =
 
 memberDecoder : Decode.Decoder Question
 memberDecoder =
-    Decode.map4 Question
+    Decode.map5 Question
         (field "id" Decode.int)
         (field "name" Decode.string)
         (field "answer" Decode.string)
+        (field "choices" (Decode.list Decode.string))
         (field "prize" Decode.int)    
