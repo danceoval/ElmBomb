@@ -51,11 +51,13 @@ div.transbox
 	font-family: "munro", serif;
 }
 
-#gameboard{
+.board{
 	width: 95vw;
 	height: calc(100vh - 30px);
 	margin: 0 auto;
 }
+
+
 
 #spacer{
 	height: 10px;
@@ -71,7 +73,6 @@ div.transbox
 
 h1, h2, p{
 	font-family: "munro", serif;
-	font-size: 250%;
 }
 
 .answered{

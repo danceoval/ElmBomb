@@ -99,7 +99,7 @@ selectScene int =
       "The adventurer with the most gems will become the Hero of Thebes and will be remembered for ages to come!",
       "So, can you defeat me?"]
   in 
-    h1 [] [text(Array.get int lines |> Maybe.withDefault "")]    
+    h1 [class "title", style [("font-size", "4em")]] [text(Array.get int lines |> Maybe.withDefault "")]    
    
 -- MODAL VIEW
 dialogConfig : Model -> Dialog.Config Msg
@@ -131,8 +131,11 @@ view : Model -> Html Msg
 view model =
   div [ class "container" ] [
     div [] [
+      div [class "audio" ] [
+      
+      ],
       if (model.openingMovie /= True) then
-        div [ id "gameboard", style [("margin-top", "30px"), ( "text-align", "center" ), ("background-image", "url(static/img/pyramid.jpg)")] ][
+        div [ class "board", style [("margin-top", "30px"), ( "text-align", "center" ), ("background-image", "url(static/img/pyramid.jpg)")] ][
           div [class "row"] [
             let
               titleTxt = 
@@ -147,7 +150,7 @@ view model =
           ]
         ]
       else 
-        div [onClick IncrementSlide] [
+        div [class "board", style [("background-image", "url(static/img/sphinx.jpg)")], onClick IncrementSlide] [
           selectScene model.slide
         ]      
     ],
