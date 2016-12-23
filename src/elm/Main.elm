@@ -17,6 +17,7 @@ type alias Model =
     prizeVisible : Bool,
     currentQuestion : Question,
     questions : List Question,
+    cached : List Question,
     score : Int
   }
 
@@ -27,6 +28,7 @@ type Msg
   | ShowPrize Int
   | SetQuestion QuestionId
   | QuestionsMsg Components.QuestionSet.Msg
+  | ResetGame 
   | NoOp
 
 
@@ -50,7 +52,7 @@ update msg model =
     ShowPrize int ->
       if (int > 0) then
         ({ model | answerVisible = False, prizeVisible = True, score = model.score + int }, Cmd.none)
-      else
+      else -- Lose all points
         ({ model | answerVisible = False, prizeVisible = True, score = 0 }, Cmd.none)
     SetQuestion questionId ->
       let setQ =
@@ -63,7 +65,9 @@ update msg model =
           ( updatedQuestions, cmd ) =
               Components.QuestionUpdate.update subMsg model.questions
       in
-          ( { model | questions = updatedQuestions }, Cmd.map QuestionsMsg cmd )
+          ( { model | score = 0, questions = updatedQuestions, cached = updatedQuestions }, Cmd.map QuestionsMsg cmd )
+    ResetGame ->
+      ({model | questions = model.cached }, Cmd.none)
     NoOp -> (model, Cmd.none)
 
 -- SUBSCRIPTIONS
@@ -149,14 +153,17 @@ view model =
           div [class "row"] [
             let
               titleTxt = 
-                if (List.length model.questions == 0)
-                  then 
+                if (List.length model.questions == 0) then 
                     "Game Over!"
                 else
                   "SphynxQuest"    
             in  
               h1 [ class "title"] [ text (titleTxt)],
-            mapIcons model.questions
+            mapIcons model.questions,
+            if (List.length model.questions == 0) then
+              button [class "btn btn-warning", onClick ResetGame] [text("Reset")]
+            else
+              div [] []  
           ],
           h1 [] [text("Gems: " ++ toString model.score)]
         ]
@@ -195,6 +202,7 @@ init = ({
     , prizeVisible = False
     , currentQuestion = placeholder
     , questions = [placeholder] 
+    , cached = [placeholder]
     }, Cmd.map QuestionsMsg fetchAll)
 
 -- APP
