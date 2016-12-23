@@ -53,17 +53,17 @@ update msg model =
   case msg of
     CloseModal questionId ->
       let 
-        -- Fake question to filter against
-        qs = List.filter (\q -> q.id /= questionId) model.questions
+        filteredQuestions = List.filter (\q -> q.id /= questionId) model.questions
       in
-        ({ model | showDialog = False, answerVisible = False, prizeVisible = False, questions = qs  }, Cmd.none)
+        ({ model | showDialog = False, answerVisible = False, prizeVisible = False, questions = filteredQuestions  }, Cmd.none)
     ShowAnswer -> 
       ({ model | answerVisible = True, prizeVisible = False  }, Cmd.none)
     ShowPrize ->
       ({ model | answerVisible = False, prizeVisible = True }, Cmd.none)
     SetQuestion questionId ->
       let setQ =
-        searchQuestionByKey (questionId, model.questions)
+        List.head (List.filter (\q -> q.id == questionId) model.questions)
+          |> Maybe.withDefault placeholder
       in
         ({ model | currentQuestion = setQ, showDialog = True }, Cmd.none)
     QuestionsMsg subMsg ->
@@ -99,18 +99,8 @@ mapIcons : List Question -> Html Msg
 mapIcons questions = 
   div [] (List.map mapIcon questions)  
 
-searchQuestionByKey : (QuestionId, List Question) -> Question
-searchQuestionByKey (questionId, questions) =
-  let questionsCopy = questions
-      item = Maybe.withDefault placeholder (List.head questionsCopy)
-  in  
-    if (List.length questionsCopy /= 0 && item.id == questionId ) then
-      item
-    else
-      searchQuestionByKey (questionId, (List.drop 1 questionsCopy))
    
-
--- Modal
+-- MODAL VIEW
 dialogConfig : Model -> Dialog.Config Msg
 dialogConfig model =
     { 
@@ -141,7 +131,15 @@ view model =
   div [ class "container" ] [
     div [ id "gameboard", style [("margin-top", "30px"), ( "text-align", "center" ), ("background-image", "url(static/img/pyramid.jpg)")] ][
       div [class "row"] [
-        h1 [ id "title"] [ text ("SphynxQuest")],
+        let
+          titleTxt = 
+            if (List.length model.questions == 0)
+              then 
+                "Game Over!"
+            else
+              "SphynxQuest"    
+        in  
+          h1 [ id "title"] [ text (titleTxt)],
         mapIcons model.questions
       ]
     ],
