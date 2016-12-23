@@ -2,11 +2,9 @@ import Dialog
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing ( onClick )
-import Components.Question exposing (Question)
+import Components.Question exposing (Question, QuestionId)
 import Components.QuestionSet exposing (Msg, fetchAll)
 import Components.QuestionUpdate 
-
-
 
 -- MODELS
 type alias Model =
@@ -22,6 +20,7 @@ type Msg
   | CloseModal
   | ShowAnswer
   | ShowPrize
+  | SetQuestion QuestionId
   | QuestionsMsg Components.QuestionSet.Msg
   | NoOp
 
@@ -30,7 +29,7 @@ type Msg
 placeholder : Question
 placeholder =
   {
-    id = "0"
+    id = 0
     , name = "How many licks to the center of a tootsie pop?"
     , answer = "50000"
     , prize = 1
@@ -60,6 +59,11 @@ update msg model =
       ({ model | answerVisible = True, prizeVisible = False  }, Cmd.none)
     ShowPrize ->
       ({ model | answerVisible = False, prizeVisible = True }, Cmd.none)
+    SetQuestion questionId ->
+      let setQ =
+        searchQuestionByKey (questionId, model.questions)
+      in
+        ({ model | currentQuestion = setQ, showDialog = True }, Cmd.none)
     QuestionsMsg subMsg ->
       let
           ( updatedQuestions, cmd ) =
@@ -84,17 +88,24 @@ mapPrizes int =
 
 mapIcon : Question -> Html Msg
 mapIcon question =
-  div [class "col-md-4 question", onClick OpenModal] [
-    h1 [] [text(question.id)],
-    img [class "img-responsive", src "static/img/sphynxsprite.png", onClick OpenModal] []
+  div [class "col-md-4 question", onClick (SetQuestion question.id) ] [
+    h1 [class "markerNo"] [text(toString question.id)],
+    img [class "img-responsive", src "static/img/sphynxsprite.png"] []
   ]
 
 mapIcons : List Question -> Html Msg
 mapIcons questions = 
   div [] (List.map mapIcon questions)  
-  
-  
 
+searchQuestionByKey : (QuestionId, List Question) -> Question
+searchQuestionByKey (questionId, questions) =
+  let questionsCopy = questions
+      item = Maybe.withDefault placeholder (List.head questionsCopy)
+  in  
+    if (List.length questionsCopy /= 0 && item.id == questionId ) then
+      item
+    else
+      searchQuestionByKey (questionId, (List.drop 1 questionsCopy))
 
 -- Modal
 dialogConfig : Model -> Dialog.Config Msg

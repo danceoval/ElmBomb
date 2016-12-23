@@ -4,7 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 
 type alias QuestionId =
-    String
+    Int
 
 
 type alias Question =

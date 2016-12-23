@@ -1,7 +1,7 @@
 {
 	"questions" : [
 		{
-			"id" : "1",
+			"id" : 1,
 			"name": "What is the capital of Djibouti?",
 		    "answer": "Djibouti",
 		    "points": "+3 Gems!",
@@ -10,23 +10,23 @@
 		    "prize": 3
 		},
 		{
-			"id" : "2",
+			"id" : 2,
 			"name": "What number president was Abraham Lincoln?",
 		    "answer": "16th",
 		    "prize": 1},
 		{
-			"id" : "3",
+			"id" : 3,
 			"name": "What part of the brain governs hunger, thirst and body temperature?",
 		    "answer": "The Hypothalamus",
 		    "prize": 1},
 		{	
-			"id" : "4",
+			"id" : 4,
 			"name": "What is the name of Hamlet's girlfriend?",
 		    "answer": "Ophelia",
 		    "prize": 4},
 		
 		{
-			"id" : "5",
+			"id" : 5,
 			"name": "What is the name of Tony Soprano's daughter?",
 		    "answer": "Meadow",
 		    "prize": 3

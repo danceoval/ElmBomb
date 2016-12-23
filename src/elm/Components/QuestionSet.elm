@@ -26,7 +26,7 @@ collectionDecoder =
 memberDecoder : Decode.Decoder Question
 memberDecoder =
     Decode.map4 Question
-        (field "id" Decode.string)
+        (field "id" Decode.int)
         (field "name" Decode.string)
         (field "answer" Decode.string)
         (field "prize" Decode.int)    
