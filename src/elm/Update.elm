@@ -3,7 +3,9 @@ module Update exposing (..)
 import Messages exposing (Msg(..))
 import Models exposing (Model, placeholder)
 import Components.QuestionUpdate 
-
+import Random.List exposing (choose, shuffle)
+import Random exposing (Seed, initialSeed, step)
+import Array.Hamt as Array
 
 -- UPDATE
 update : Messages.Msg -> Model -> (Model, Cmd Messages.Msg)
@@ -14,9 +16,9 @@ update msg model =
         ({model | openingMovie = False}, Cmd.none)
       else 
         ({model | slide = model.slide + 1}, Cmd.none)  
-    CloseModal questionId ->
+    CloseModal currentQuestion ->
       let 
-        filteredQuestions = List.filter (\q -> q.id /= questionId) model.questions
+        filteredQuestions = List.filter (\q -> q /= currentQuestion) model.questions
       in
         ({ model | showDialog = False, prizeVisible = False, questions = filteredQuestions, selectedChoice = ""  }, Cmd.none)
     SelectChoice str ->
@@ -44,18 +46,15 @@ update msg model =
         else
           -- No Points, Change turn
           ({ model | turnRed = not model.turnRed }, Cmd.none)       
-    SetQuestion questionId ->
-      let setQ =
-        List.head (List.filter (\q -> q.id == questionId) model.questions)
-          |> Maybe.withDefault placeholder
-      in
-        ({ model | currentQuestion = setQ, showDialog = True }, Cmd.none)
+    SetQuestion q ->
+        ({ model | currentQuestion = q, showDialog = True }, Cmd.none)
     QuestionsMsg subMsg ->
-      let
-          ( updatedQuestions, cmd ) =
-              Components.QuestionUpdate.update subMsg model.questions
+      let 
+        ( updatedQuestions, cmd ) =
+            Components.QuestionUpdate.update subMsg model.questions
+        --(shuffled, seed) = Random.step (shuffle updatedQuestions) (Random.initialSeed (List.length updatedQuestions))     
       in
-          ( { model | questions = updatedQuestions, cached = updatedQuestions }, Cmd.map QuestionsMsg cmd )
+          ( { model | questions = updatedQuestions, cached = updatedQuestions}, Cmd.map QuestionsMsg cmd )
     ResetGame ->
       ({model | scoreRed = 0, scoreBlue = 0, questions = model.cached }, Cmd.none)
     NoOp -> (model, Cmd.none)

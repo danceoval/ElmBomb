@@ -5,10 +5,10 @@ import Components.QuestionSet exposing (Msg, fetchAll)
 
 type Msg 
   = IncrementSlide
-  | CloseModal QuestionId
+  | CloseModal Question
   | SelectChoice String
   | Guess String
-  | SetQuestion QuestionId
+  | SetQuestion Question
   | QuestionsMsg Components.QuestionSet.Msg
   | ResetGame 
   | NoOp
