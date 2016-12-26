@@ -4,11 +4,12 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing ( onClick )
 import Messages exposing (Msg(..))
-import Models exposing (Model)
+import Models exposing (Model, placeholder)
 import Components.Question exposing (Question, QuestionId)
 import Dialog
 import Array.Hamt as Array
-
+import Random.List exposing (choose, shuffle)
+import Random exposing (Seed, initialSeed, step)
 
 -- UTILS
 mapPrize : Int -> Html Msg
@@ -27,19 +28,24 @@ mapPrizes int =
   else
     h3 [class "warning"] [text ("Teams Switch points!")]
 
+
 getLetter : Int -> String
 getLetter n =
-  String.slice (n - 1) n  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-mapIcon : Question -> Html Msg
-mapIcon question = 
+  String.slice n (n+1)  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+mapIcon : Int -> Question -> Html Msg
+mapIcon acc question = 
   div [class "col-md-3 question", onClick (SetQuestion question.id) ] [
-    h1 [class "markerNo"] [text(getLetter question.id)],
+    h1 [class "markerNo"] [text(getLetter acc)],
     img [class "img-responsive", src "static/img/sphynxsprite.png"] []
   ]
 
 mapIcons : List Question -> Html Msg
 mapIcons questions = 
-  div [] (List.map mapIcon questions)  
+  let 
+    (shuffled, seed) = Random.step (shuffle questions) (Random.initialSeed (List.length questions))
+  in  
+    div [] (List.indexedMap mapIcon shuffled)
 
 selectScene : Int -> Html Msg
 selectScene int =
