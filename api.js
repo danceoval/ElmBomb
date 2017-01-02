@@ -21,8 +21,7 @@ app.use(function (err, req, res, next) {
 app.get('/', function(req, res, next) {
   var questions = db.questions;
   var shuffled = shuffle(questions).slice(0, 12)
-  //Add temp order value for front end lettering
-  var ordered = order(shuffled)
+  var ordered = order(shuffled) 
   res.setHeader('Content-Type', 'application/json');
   res.send(ordered)
 })

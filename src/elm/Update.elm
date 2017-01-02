@@ -3,6 +3,7 @@ module Update exposing (..)
 import Messages exposing (Msg(..))
 import Models exposing (Model, placeholder)
 import Components.QuestionUpdate 
+import Components.QuestionSet exposing (Msg, fetchAll)
 
 -- UPDATE
 update : Messages.Msg -> Model -> (Model, Cmd Messages.Msg)
@@ -48,10 +49,9 @@ update msg model =
     QuestionsMsg subMsg ->
       let 
         ( updatedQuestions, cmd ) =
-            Components.QuestionUpdate.update subMsg model.questions
-        --(shuffled, seed) = Random.step (shuffle updatedQuestions) (Random.initialSeed (List.length updatedQuestions))     
+          Components.QuestionUpdate.update subMsg model.questions
       in
           ( { model | questions = updatedQuestions, cached = updatedQuestions}, Cmd.map QuestionsMsg cmd )
     ResetGame ->
-      ({model | scoreRed = 0, scoreBlue = 0, questions = model.cached }, Cmd.none)
+      ({model | scoreRed = 0, scoreBlue = 0, questions = model.cached }, Cmd.map QuestionsMsg fetchAll)
     NoOp -> (model, Cmd.none)

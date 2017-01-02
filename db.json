@@ -78,10 +78,52 @@
 		},
 		{
 			"id" : 12,
-			"name": "Who protein exists in insect exoskeletons and Skittles?",
+			"name": "What protein exists in insect exoskeletons and Skittles?",
 		   "answer": "Chitin",
 		   "choices" : ["Chitin", "Gelatin", "Glycogin", "B-alanine"],
 		   "prize": 3
+		},
+		{
+			"id" : 13,
+			"name": "What color flame burns the hottest?",
+		   "answer": "Blue",
+		   "choices" : ["Red", "Yellow", "Green", "Blue"],
+		   "prize": 3
+		},
+		{
+			"id" : 14,
+			"name": "This disgraced Korean President was the offspring of an earlier dictator.",
+		   "answer": "Park Geun Hye",
+		   "choices" : ["Park Ji Yoon", "Kim Jong Un", "Park Geun Hye", "Kim Dae Jung"],
+		   "prize": 0
+		},
+		{
+			"id" : 15,
+			"name": "Which word is the antonym of 'jejune'?",
+		   "answer": "Sophisticated",
+		   "choices" : ["Joyful", "Naive", "Sophisticated", "Uncouth"],
+		   "prize": 2
+		},
+		{
+			"id" : 16,
+			"name": "As of 2016, which country's parliament to women outnumber men?",
+		   "answer": "Rwanda",
+		   "choices" : ["Canada", "Scotland", "Rwanda", "Bolivia"],
+		   "prize": 5
+		},
+		{
+			"id" : 17,
+			"name": "Who wrote the 1975 sci-fi epic 'Dhalgren'?",
+		   "answer": "Samuel R Delaney",
+		   "choices" : ["Samuel R Delaney", "Octavia Butler", "Thomas Pynchon", "Philip K Dick"],
+		   "prize": 2
+		},
+		{
+			"id" : 18,
+			"name": "Which of the following is not a brand of hot sauce?",
+		   "answer": "Cuban Pete's",
+		   "choices" : ["Cholula", "Sriracha", "Cuban Pete's", "Gochujang"],
+		   "prize": 99
 		}
 	]
 }
