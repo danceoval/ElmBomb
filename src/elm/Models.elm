@@ -31,6 +31,7 @@ placeholder =
     , answer = "IDK"
     , choices = ["Over 9000", "1", "IDK", "666"]
     , prize = 1
+    , order = 0
 
   }
 

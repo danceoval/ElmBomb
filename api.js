@@ -1,17 +1,3 @@
-// var jsonServer = require('json-server')
-
-// // Returns an Express server
-// var server = jsonServer.create()
-
-// // Set default middlewares (logger, static, cors and no-cache)
-// server.use(jsonServer.defaults())
-
-// var router = jsonServer.router('db.json')
-// server.use(router)
-
-// console.log('Listening at 4000')
-// server.listen(4000)
-
 var express = require('express');
 var app = express();
 var db = require('./db.json');
@@ -35,8 +21,10 @@ app.use(function (err, req, res, next) {
 app.get('/', function(req, res, next) {
   var questions = db.questions;
   var shuffled = shuffle(questions).slice(0, 12)
+  //Add temp order value for front end lettering
+  var ordered = order(shuffled)
   res.setHeader('Content-Type', 'application/json');
-  res.send(shuffled)
+  res.send(ordered)
 })
 
 
@@ -54,6 +42,16 @@ function shuffle(deck) {
     swap(i, deck)
   }
   return deck;
+}
+
+function order(questions) {
+  var ordered = []
+  for(var i = 0; i < questions.length; i++) {
+    var el = questions[i]
+    el["order"] = i;
+    ordered.push(el)
+  }
+  return ordered
 }
 
 // SERVER

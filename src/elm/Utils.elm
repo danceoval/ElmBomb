@@ -29,18 +29,18 @@ mapPrizes int =
 
 getLetter : Int -> String
 getLetter n =
-  String.slice (n-1) n   "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  String.slice n (n + 1) "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-mapIcon : Question -> Html Msg
-mapIcon question = 
+mapIcon : Int -> Question -> Html Msg
+mapIcon acc question = 
   div [class "col-md-3 question", onClick (SetQuestion question) ] [
-    h1 [class "markerNo"] [text(getLetter question.id)],
+    h1 [class "markerNo"] [text(getLetter question.order)],
     img [class "img-responsive", src "static/img/sphynxsprite.png"] []
   ]
 
 mapIcons : List Question -> Html Msg
 mapIcons questions = 
-  div [] (List.map mapIcon questions)
+  div [] (List.indexedMap mapIcon questions)
 
 selectScene : Int -> Html Msg
 selectScene int =

@@ -10,4 +10,5 @@ type alias Question =
     , answer : String
     , choices : List String
     , prize : Int
+    , order : Int
     }
