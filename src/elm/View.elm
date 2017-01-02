@@ -65,7 +65,7 @@ view model =
                 else     
                  "Blue's Turn"
                 in  
-              h1 [ class "title"] [ text (titleTxt)],
+                  h1 [ class "title"] [ text (titleTxt)],
             mapIcons model.questions,
             if (List.length model.questions == 0) then
               div [] [

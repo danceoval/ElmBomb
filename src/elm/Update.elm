@@ -3,9 +3,6 @@ module Update exposing (..)
 import Messages exposing (Msg(..))
 import Models exposing (Model, placeholder)
 import Components.QuestionUpdate 
-import Random.List exposing (choose, shuffle)
-import Random exposing (Seed, initialSeed, step)
-import Array.Hamt as Array
 
 -- UPDATE
 update : Messages.Msg -> Model -> (Model, Cmd Messages.Msg)

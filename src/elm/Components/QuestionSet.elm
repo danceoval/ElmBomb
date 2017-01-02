@@ -9,13 +9,8 @@ type Msg
 
 fetchAll : Cmd Msg
 fetchAll =
-    Http.get fetchAllUrl collectionDecoder
+    Http.get "http://localhost:4000/" collectionDecoder
         |> Http.send OnFetchAll
-
-
-fetchAllUrl : String
-fetchAllUrl =
-    "http://localhost:4000/questions"
 
 
 collectionDecoder : Decode.Decoder (List Question)
