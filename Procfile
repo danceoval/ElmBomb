@@ -1,1 +1,2 @@
-web: node api.js
+api: npm run api
+client: npm run build
