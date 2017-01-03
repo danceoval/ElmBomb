@@ -1,4 +1,4 @@
-port module Components.QuestionSet exposing (..)
+module Components.QuestionSet exposing (..)
 
 import Http
 import Json.Decode as Decode exposing (field)
@@ -7,11 +7,11 @@ import Components.Question exposing (QuestionId, Question)
 type Msg
     = OnFetchAll (Result Http.Error (List Question))
 
-port api : String -> Sub Msg
 
+-- switch to 'https://localhost:4000' when running locally
 fetchAll : Cmd Msg
 fetchAll =
-    Http.get api collectionDecoder
+    Http.get "https://radiant-sierra-95673.herokuapp.com" collectionDecoder
         |> Http.send OnFetchAll
 
 
