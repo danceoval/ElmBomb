@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 var db = require('./db.json');
-var serveStatic = require('serve-static');
 
 // MIDDLEWARE
 
@@ -11,7 +10,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(serveStatic(__dirname + '/'));
+app.use(express.static(__dirname + '/dist'));
 
 app.use(function (err, req, res, next) {
     console.error(err);
