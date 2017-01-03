@@ -7,7 +7,7 @@
   "scripts": {
     "api": "node api.js",
     "start": "nf start",
-    "build": "rimraf dist && webpack",
+    "build": "rimraf dist && webpack -p --config ./webpack.prod.config.js --progress",
     "build-dev" : "webpack-dev-server --hot --inline --content-base src/",
     "reinstall": "npm i rimraf && rimraf node_modules && npm uninstall -g elm && npm i -g elm && npm i && elm package install"
   },
