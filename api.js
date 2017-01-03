@@ -11,7 +11,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static(__dirname + 'dist/static'));
+app.use(express.static(path.join(__dirname, 'dist/static')));
 
 app.use(function (err, req, res, next) {
     console.error(err);
@@ -27,9 +27,9 @@ app.get('/', function(req, res, next) {
   var ordered = order(shuffled) 
   var prized = setPrize(ordered)
   res.setHeader('Content-Type', 'application/json');
-  var indexPath = path.join(__dirname + "/dist/index.html")
+  var indexPath = path.join(__dirname, "/dist/index.html")
   //res.send(prized)
-  res.render(path.resolve(indexPath))
+  res.renderFile(indexPath)
 })
 
 
