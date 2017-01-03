@@ -1,2 +1,2 @@
-client: npm run build
-api: npm run api
+api: node api.js
+client: npm run build-dev
