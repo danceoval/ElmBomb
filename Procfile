@@ -1,4 +1,4 @@
 web: node api.js
-build: npm run build
+build: npm run build-dev
 
 
