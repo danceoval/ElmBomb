@@ -11,7 +11,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static(__dirname + '/dist/static/'));
+app.use(express.static(__dirname + 'dist/static'));
 
 app.use(function (err, req, res, next) {
     console.error(err);
