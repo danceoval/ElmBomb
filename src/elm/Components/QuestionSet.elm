@@ -1,4 +1,4 @@
-port module Components.QuestionSet exposing (..)
+module Components.QuestionSet exposing (..)
 
 import Http
 import Json.Decode as Decode exposing (field)
@@ -7,11 +7,9 @@ import Components.Question exposing (QuestionId, Question)
 type Msg
     = OnFetchAll (Result Http.Error (List Question))
 
-port api : String -> Sub Msg
-
 fetchAll : Cmd Msg
 fetchAll =
-    Http.get api collectionDecoder
+    Http.get "http://localhost:4000" collectionDecoder
         |> Http.send OnFetchAll
 
 
