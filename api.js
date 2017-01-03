@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 var db = require('./db.json');
+var path = require('path');
+
 
 // MIDDLEWARE
 
@@ -9,6 +11,9 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
+var rootPath = path.join(__dirname, '..', 'dist');
+app.use(express.static(rootPath))
 
 app.use(function (err, req, res, next) {
     console.error(err);
