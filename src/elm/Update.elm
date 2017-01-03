@@ -24,7 +24,7 @@ update msg model =
     Guess str ->
       let prize = model.currentQuestion.prize in 
         if str == model.currentQuestion.answer then
-          if (prize /= 0 && prize /= 99) then
+          if (prize /= 0 && prize /= 6) then
             --Red Scores
             if model.turnRed then
               ({model | prizeVisible = True, scoreRed = (model.scoreRed + model.currentQuestion.prize), turnRed = not model.turnRed}, Cmd.none)

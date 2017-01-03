@@ -22,8 +22,9 @@ app.get('/', function(req, res, next) {
   var questions = db.questions;
   var shuffled = shuffle(questions).slice(0, 12)
   var ordered = order(shuffled) 
+  var prized = setPrize(ordered)
   res.setHeader('Content-Type', 'application/json');
-  res.send(ordered)
+  res.send(prized)
 })
 
 
@@ -41,6 +42,18 @@ function shuffle(deck) {
     swap(i, deck)
   }
   return deck;
+}
+
+function setPrize(questions) {
+  //1-5 gems, 0 = bomb, 6 = switch
+  var prized = [];
+  for(var i = 0; i < questions.length; i++) {
+    var el = questions[i]
+    var prize = Math.floor(Math.random() * 7)
+    el["prize"] = prize;
+    prized.push(el)
+  }
+  return prized
 }
 
 function order(questions) {

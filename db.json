@@ -5,125 +5,111 @@
 			"name": "What is the capital of Djibouti?",
 		    "answer": "Djibouti",
 		    "choices" : ["Damascus", "Djibouti", "Asmara", "Djoubet"],
-		    "points": "+3 Gems!",
-		    "prize": 3
+		    "points": "+3 Gems!"
 		},
 		{
 			"id" : 2,
 			"name": "What number president was Abraham Lincoln?",
 		    "answer": "16th",
-		    "choices" : ["16th", "9th", "14th", "12th"],
-		    "prize": 99},
+		    "choices" : ["16th", "9th", "14th", "12th"]
+		},
 		{
 			"id" : 3,
 			"name": "What part of the brain governs hunger, thirst and body temperature?",
 		    "answer": "Hypothalamus",
-		    "choices" : ["Cerebellum", "Medula", "Hypothalamus", "Thalamus"],
-		    "prize": 1},
+		    "choices" : ["Cerebellum", "Medula", "Hypothalamus", "Thalamus"]
+		},
 		{	
 			"id" : 4,
 			"name": "What is the name of Hamlet's girlfriend?",
 		    "answer": "Ophelia",
-		    "choices" : ["Gertrude", "Rosalind", "Ophelia", "Rosencrantz"],
-		    "prize": 4},
+		    "choices" : ["Gertrude", "Rosalind", "Ophelia", "Rosencrantz"]
+		},
 		
 		{
 			"id" : 5,
 			"name": "What is the name of Tony Soprano's daughter?",
 		    "answer": "Meadow",
-		    "choices" : ["Adriana", "Carmella", "Livia", "Meadow"],
-		    "prize": 3
+		    "choices" : ["Adriana", "Carmella", "Livia", "Meadow"]
+		
 		},
 		{
 			"id" : 6,
 			"name": "What pet did the Emperor Caligula appoint to the Roman Senate?",
 		   "answer": "Incitatus",
-		   "choices" : ["Ivanka", "Incitatus", "Horiatius", "Azrael"],
-		   "prize": 0
+		   "choices" : ["Ivanka", "Incitatus", "Horiatius", "Azrael"]
 		},
 		{
 			"id" : 7,
 			"name": "What is Alfred Nobel famous for inventing?",
 		   "answer": "Dynamite",
-		   "choices" : ["Rubber", "Perpetual Motion", "Polyurethane", "Dynamite"],
-		   "prize": 0
+		   "choices" : ["Rubber", "Perpetual Motion", "Polyurethane", "Dynamite"]
 		},
 		{
 			"id" : 8,
 			"name": "Who created the jazz-fusion double-album 'Bitches Brew'?",
 		   "answer": "Miles Davis",
-		   "choices": ["Lou Reed", "Charlie Parker", "Miles Davis", "Charles Mingus"],
-		   "prize": 5
+		   "choices": ["Lou Reed", "Charlie Parker", "Miles Davis", "Charles Mingus"]
 		},
 		{
 			"id" : 9,
 			"name": "How many US States have 'New' in their name?",
 			"choices" : ["Three", "Four", "Five", "Six"],
-		   "answer": "Four",
-		   "prize": 4
+		   "answer": "Four"
 		},
 		{
 			"id" : 10,
 			"name": "Who was the first person to win 2 Nobel Prizes?",
 		  "answer": "Marie Curie",
-		  "choices" : ["Albert Einstein", "Barack Obama", "Marie Curie", "Linus Pauling"],
-		  "prize": 1
+		  "choices" : ["Albert Einstein", "Barack Obama", "Marie Curie", "Linus Pauling"]
 		},
 		{
 			"id" : 11,
 			"name": "Which dinosaur was once considered illigitimate by mainstream science?",
 		   "answer": "Brontosaurus",
-		   "choices" : ["T-Rex", "Triceratops", "Brontosaurus", "Bracheosaurus"],
-		   "prize": 99
+		   "choices" : ["T-Rex", "Triceratops", "Brontosaurus", "Bracheosaurus"]
 		},
 		{
 			"id" : 12,
 			"name": "What protein exists in insect exoskeletons and Skittles?",
 		   "answer": "Chitin",
-		   "choices" : ["Chitin", "Gelatin", "Glycogin", "B-alanine"],
-		   "prize": 3
+		   "choices" : ["Chitin", "Gelatin", "Glycogin", "B-alanine"]
 		},
 		{
 			"id" : 13,
 			"name": "What color flame burns the hottest?",
 		   "answer": "Blue",
-		   "choices" : ["Red", "Yellow", "Green", "Blue"],
-		   "prize": 3
+		   "choices" : ["Red", "Yellow", "Green", "Blue"]
 		},
 		{
 			"id" : 14,
 			"name": "This disgraced Korean President was the offspring of an earlier dictator.",
 		   "answer": "Park Geun Hye",
-		   "choices" : ["Park Ji Yoon", "Kim Jong Un", "Park Geun Hye", "Kim Dae Jung"],
-		   "prize": 0
+		   "choices" : ["Park Ji Yoon", "Kim Jong Un", "Park Geun Hye", "Kim Dae Jung"]
 		},
 		{
 			"id" : 15,
 			"name": "Which word is the antonym of 'jejune'?",
 		   "answer": "Sophisticated",
-		   "choices" : ["Joyful", "Naive", "Sophisticated", "Uncouth"],
-		   "prize": 2
+		   "choices" : ["Joyful", "Naive", "Sophisticated", "Uncouth"]
 		},
 		{
 			"id" : 16,
 			"name": "As of 2016, which country's parliament to women outnumber men?",
 		   "answer": "Rwanda",
-		   "choices" : ["Canada", "Scotland", "Rwanda", "Bolivia"],
-		   "prize": 5
+		   "choices" : ["Canada", "Scotland", "Rwanda", "Bolivia"]
 		},
 		{
 			"id" : 17,
 			"name": "Who wrote the 1975 sci-fi epic 'Dhalgren'?",
 		   "answer": "Samuel R Delaney",
-		   "choices" : ["Samuel R Delaney", "Octavia Butler", "Thomas Pynchon", "Philip K Dick"],
-		   "prize": 2
+		   "choices" : ["Samuel R Delaney", "Octavia Butler", "Thomas Pynchon", "Philip K Dick"]
 		},
 		{
 			"id" : 18,
 			"name": "Which of the following is not a brand of hot sauce?",
 		   "answer": "Cuban Pete's",
-		   "choices" : ["Cholula", "Sriracha", "Cuban Pete's", "Gochujang"],
-		   "prize": 99
+		   "choices" : ["Cholula", "Sriracha", "Cuban Pete's", "Gochujang"]
 		}
 	]
 }
