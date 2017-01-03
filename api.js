@@ -70,7 +70,7 @@ function order(questions) {
 }
 
 // SERVER
-var port = 4000
+var port = process.env.PORT || 4000
 var server = app.listen(port, function(){
   console.log('listening on port ', port);
 });
