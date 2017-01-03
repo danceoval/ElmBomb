@@ -11,7 +11,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(serveStatic(__dirname + '/dist/'));
+//app.use(serveStatic(__dirname + '/dist/'));
 
 app.use(function (err, req, res, next) {
     console.error(err);
@@ -70,7 +70,7 @@ function order(questions) {
 }
 
 // SERVER
-var port = process.env.PORT || 4000
+var port = 4000
 var server = app.listen(port, function(){
   console.log('listening on port ', port);
 });

@@ -7,7 +7,6 @@ import Components.Question exposing (QuestionId, Question)
 type Msg
     = OnFetchAll (Result Http.Error (List Question))
 
-
 -- switch to 'https://localhost:4000' when running locally
 fetchAll : Cmd Msg
 fetchAll =
