@@ -11,7 +11,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(serveStatic(__dirname + '/src'));
+app.use(serveStatic(__dirname + '/dist/'));
 
 app.use(function (err, req, res, next) {
     console.error(err);
