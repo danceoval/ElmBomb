@@ -6,8 +6,9 @@ require( '../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.js' ); 
 // inject bundled Elm app into div#main
 var Elm = require( '../elm/Main' );
 var port;
+
 if (process.env.Port) {
-	port = "https://sphinxquest.herokuapp.com/" + process.env.PORT	
+	port = "http://localhost:" + process.env.PORT	
 } else {
 	port = "http://localhost:4000/";
 }
