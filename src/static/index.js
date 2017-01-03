@@ -5,13 +5,7 @@ require( '../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.js' ); 
 
 // inject bundled Elm app into div#main
 var Elm = require( '../elm/Main' );
-var port;
-
-if (process.env.Port) {
-	port = "http://localhost:" + process.env.PORT	
-} else {
-	port = "http://localhost:4000/";
-}
-
+var port = process.env.Port;
+console.log("000", port)
 Elm.Main.embed( document.getElementById( 'main' ) );
 Elm.Main.ports.api.send(port);
