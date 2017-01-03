@@ -1,2 +1,2 @@
-api: npm run api
 client: npm run build
+api: npm run api

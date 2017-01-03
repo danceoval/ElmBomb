@@ -1,8 +1,7 @@
 var express = require('express');
 var app = express();
 var db = require('./db.json');
-var path = require('path');
-
+var serveStatic = require('serve-static');
 
 // MIDDLEWARE
 
@@ -12,8 +11,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-var rootPath = path.join(__dirname, '..', 'dist');
-app.use(express.static(rootPath))
+app.use(serveStatic(__dirname));
 
 app.use(function (err, req, res, next) {
     console.error(err);
