@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var db = require('./db.json');
+var path = require('path');
 
 // MIDDLEWARE
 
@@ -10,7 +11,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/static/', express.static(__dirname + '/dist/static/'));
+app.use(express.static(__dirname + '/dist/static/'));
 
 app.use(function (err, req, res, next) {
     console.error(err);
@@ -26,7 +27,9 @@ app.get('/', function(req, res, next) {
   var ordered = order(shuffled) 
   var prized = setPrize(ordered)
   res.setHeader('Content-Type', 'application/json');
-  res.send(prized)
+  var indexPath = path.join(__dirname + "/dist/index.html")
+  //res.send(prized)
+  res.sendFile(indexPath)
 })
 
 
