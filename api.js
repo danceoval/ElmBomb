@@ -29,7 +29,7 @@ app.get('/', function(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   var indexPath = path.join(__dirname + "/dist/index.html")
   //res.send(prized)
-  res.sendFile(indexPath)
+  res.sendFile(path.resolve(indexPath))
 })
 
 
