@@ -5,8 +5,8 @@
   "license": "MIT",
   "author": "DAS",
   "scripts": {
-    "api": "node api.js",
-    "start": "webpack-dev-server --hot --inline --content-base src/",
+    "start": "node api.js",
+    "start-dev": "webpack-dev-server --hot --inline --content-base src/",
     "build": "rimraf dist && webpack",
     "reinstall": "npm i rimraf && rimraf node_modules && npm uninstall -g elm && npm i -g elm && npm i && elm package install"
   },
@@ -15,7 +15,7 @@
     "bootstrap-sass": "^3.3.6",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.25.0",
-    "elm": "^0.18.0",
+    "elm": "0.18.0",
     "elm-hot-loader": "^0.5.2",
     "elm-webpack-loader": "^3.0.6",
     "extract-text-webpack-plugin": "^1.0.1",

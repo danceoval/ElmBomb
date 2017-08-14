@@ -9,7 +9,7 @@ type Msg
 
 fetchAll : Cmd Msg
 fetchAll =
-    Http.get "http://localhost:4000/" collectionDecoder
+    Http.get "http://localhost:4000/questions" collectionDecoder
         |> Http.send OnFetchAll
 
 
