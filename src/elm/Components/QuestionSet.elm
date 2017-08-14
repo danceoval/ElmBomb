@@ -7,9 +7,11 @@ import Components.Question exposing (QuestionId, Question)
 type Msg
     = OnFetchAll (Result Http.Error (List Question))
 
+-- switch to 'https://localhost:4000' when running locally
 fetchAll : Cmd Msg
 fetchAll =
-    Http.get "https://pure-falls-27424.herokuapp.com/questions" collectionDecoder
+    Http.get "https://whispering-reaches-72262.herokuapp.com/questions" collectionDecoder
+
         |> Http.send OnFetchAll
 
 

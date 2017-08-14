@@ -16,7 +16,7 @@ mapPrize int =
 
 mapPrizes : Int -> Html Msg
 mapPrizes int = 
-  if (int /= 0 && int /= 99) then
+  if (int /= 0 && int /= 6) then
     div [] (List.map mapPrize (List.range 1 int))
   else if int == 0 then 
     div [] [
