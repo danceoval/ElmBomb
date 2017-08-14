@@ -9,7 +9,7 @@ type Msg
 
 fetchAll : Cmd Msg
 fetchAll =
-    Http.get "http://localhost:4000/questions" collectionDecoder
+    Http.get "https://pure-falls-27424.herokuapp.com/questions" collectionDecoder
         |> Http.send OnFetchAll
 
 
