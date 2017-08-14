@@ -17,6 +17,7 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 .question {
 	padding-left: 50px;
    margin-bottom: 25px;
+   float: left;
 }
 #sphynx img{
 	margin: 0 auto;
@@ -24,7 +25,6 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 .markerNo{
 	position: absolute;
     top: 0;
-    left: 6em;
 }
 
 #death {

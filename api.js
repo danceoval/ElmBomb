@@ -11,6 +11,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+
 app.use(express.static(path.join(__dirname, 'dist/static')));
 
 app.use(function (err, req, res, next) {
@@ -19,9 +20,11 @@ app.use(function (err, req, res, next) {
 });
 
 
+app.use('/static', express.static('dist/static'))
+
 // ROUTES
 
-app.get('/', function(req, res, next) {
+app.get('/questions', function(req, res, next) {
   var questions = db.questions;
   var shuffled = shuffle(questions).slice(0, 12)
   var ordered = order(shuffled) 
@@ -30,6 +33,10 @@ app.get('/', function(req, res, next) {
   var indexPath = path.join(__dirname, "/dist/index.html")
   //res.send(prized)
   res.renderFile(indexPath)
+})
+
+app.get('/', function(req, res, next) {
+  res.sendFile(path.join(__dirname+'/dist/index.html'));
 })
 
 
@@ -72,7 +79,8 @@ function order(questions) {
 }
 
 // SERVER
+
 var port = process.env.PORT || 4000
-var server = app.listen(port, function(){
+app.listen(port, function(){
   console.log('listening on port ', port);
 });

@@ -10,7 +10,8 @@ type Msg
 -- switch to 'https://localhost:4000' when running locally
 fetchAll : Cmd Msg
 fetchAll =
-    Http.get "https://radiant-sierra-95673.herokuapp.com" collectionDecoder
+    Http.get "https://whispering-reaches-72262.herokuapp.com/questions" collectionDecoder
+
         |> Http.send OnFetchAll
 
 

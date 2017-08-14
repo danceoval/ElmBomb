@@ -5,111 +5,125 @@
 			"name": "What is the capital of Djibouti?",
 		    "answer": "Djibouti",
 		    "choices" : ["Damascus", "Djibouti", "Asmara", "Djoubet"],
-		    "points": "+3 Gems!"
+		    "points": "+3 Gems!",
+		    "prize": 3
 		},
 		{
 			"id" : 2,
-			"name": "What number president was Abraham Lincoln?",
+			"name": "Who invented the first coding language?",
 		    "answer": "16th",
-		    "choices" : ["16th", "9th", "14th", "12th"]
-		},
+		    "choices" : ["Bill Gates", "Grace Hopper", "Alan Turing", "Jon Von Neumann"],
+		    "prize": 99},
 		{
 			"id" : 3,
-			"name": "What part of the brain governs hunger, thirst and body temperature?",
-		    "answer": "Hypothalamus",
-		    "choices" : ["Cerebellum", "Medula", "Hypothalamus", "Thalamus"]
-		},
+			"name": "What do we call the text we've encoded?",
+		    "answer": "Cypher",
+		    "choices" : ["Password", "Cypher", "Key", "Cryptogram"],
+		    "prize": 1},
 		{	
 			"id" : 4,
-			"name": "What is the name of Hamlet's girlfriend?",
-		    "answer": "Ophelia",
-		    "choices" : ["Gertrude", "Rosalind", "Ophelia", "Rosencrantz"]
-		},
+			"name": "What is the study of codes?",
+		    "answer": "Cryptography",
+		    "choices" : ["Quantitative Assessment", "Entymology", "Cryptography", "Net Sec"],
+		    "prize": 4},
 		
 		{
 			"id" : 5,
-			"name": "What is the name of Tony Soprano's daughter?",
-		    "answer": "Meadow",
-		    "choices" : ["Adriana", "Carmella", "Livia", "Meadow"]
-		
+			"name": "What do we call hackers who work for good and not evil?",
+		    "answer": "White Hat",
+		    "choices" : ["White Hat", "Black Hat", "Grey Hat", "Losers"],
+		    "prize": 3
 		},
 		{
 			"id" : 6,
-			"name": "What pet did the Emperor Caligula appoint to the Roman Senate?",
+			"name": "Which of the following is not a famous computer virus?",
 		   "answer": "Incitatus",
-		   "choices" : ["Ivanka", "Incitatus", "Horiatius", "Azrael"]
+		   "choices" : ["Love Bug", "Incitatus", "WannaCry", "Stugnuts"],
+		   "prize": 0
 		},
 		{
 			"id" : 7,
-			"name": "What is Alfred Nobel famous for inventing?",
-		   "answer": "Dynamite",
-		   "choices" : ["Rubber", "Perpetual Motion", "Polyurethane", "Dynamite"]
+			"name": "Who created the first computer for code-breaking?",
+		   "answer": "Alan Turing",
+		   "choices" : ["Grace Hopper", "Neal Stephenson", "Alan Turing", "Julian Assange"],
+		   "prize": 0
 		},
 		{
 			"id" : 8,
-			"name": "Who created the jazz-fusion double-album 'Bitches Brew'?",
-		   "answer": "Miles Davis",
-		   "choices": ["Lou Reed", "Charlie Parker", "Miles Davis", "Charles Mingus"]
+			"name": "This is the name of a group of watchdogs who write standards to keep website safe from hackers",
+		   "answer": "OWASP",
+		   "choices": ["OOP", "OWASP", "INFOSEC", "Guardians of the Internet"],
+		   "prize": 5
 		},
 		{
 			"id" : 9,
-			"name": "How many US States have 'New' in their name?",
-			"choices" : ["Three", "Four", "Five", "Six"],
-		   "answer": "Four"
+			"name": "Which is not a type of computer virus?",
+			"choices" : ["Trojan", "Worm", "Spacefiller", "Housefly"],
+		   "answer": "Housefly",
+		   "prize": 4
 		},
 		{
 			"id" : 10,
 			"name": "Who was the first person to win 2 Nobel Prizes?",
 		  "answer": "Marie Curie",
-		  "choices" : ["Albert Einstein", "Barack Obama", "Marie Curie", "Linus Pauling"]
+		  "choices" : ["Albert Einstein", "Barack Obama", "Marie Curie", "Linus Pauling"],
+		  "prize": 1
 		},
 		{
 			"id" : 11,
-			"name": "Which dinosaur was once considered illigitimate by mainstream science?",
-		   "answer": "Brontosaurus",
-		   "choices" : ["T-Rex", "Triceratops", "Brontosaurus", "Bracheosaurus"]
+			"name": "This kind of attack overloads a website's server with too many fake requests",
+		   "answer": "DDOS",
+		   "choices" : ["DOD", "DDOS", "DOOM", "DPAC"],
+		   "prize": 99
 		},
 		{
 			"id" : 12,
-			"name": "What protein exists in insect exoskeletons and Skittles?",
-		   "answer": "Chitin",
-		   "choices" : ["Chitin", "Gelatin", "Glycogin", "B-alanine"]
+			"name": "This popular book contains modern tricks of the hacking trade",
+		   "answer": "Hackers Handbook",
+		   "choices" : ["CryptoNomicon", "W3 Schools", "Hackers Handbook", "Cryptography for Dummies"],
+		   "prize": 3
 		},
 		{
 			"id" : 13,
-			"name": "What color flame burns the hottest?",
-		   "answer": "Blue",
-		   "choices" : ["Red", "Yellow", "Green", "Blue"]
+			"name": "Which is not a kind of Operating System (OS)",
+		   "answer": "Nettle",
+		   "choices" : ["Fedora", "Debian", "UBUNTU", "Nettle"],
+		   "prize": 3
 		},
 		{
 			"id" : 14,
-			"name": "This disgraced Korean President was the offspring of an earlier dictator.",
-		   "answer": "Park Geun Hye",
-		   "choices" : ["Park Ji Yoon", "Kim Jong Un", "Park Geun Hye", "Kim Dae Jung"]
+			"name": "This type of code was used by soldiers in WWII",
+		   "answer": "Navajo Windtalk",
+		   "choices" : ["Cherokee Birdsbreath", "Navajo Windtalk", "C++", "Lenape Hatchet"],
+		   "prize": 0
 		},
 		{
 			"id" : 15,
-			"name": "Which word is the antonym of 'jejune'?",
-		   "answer": "Sophisticated",
-		   "choices" : ["Joyful", "Naive", "Sophisticated", "Uncouth"]
+			"name": "What coding language powers most of the internet?",
+		   "answer": "JavaScript",
+		   "choices" : ["Java", "Python", "C", "JavaScript"],
+		   "prize": 2
 		},
 		{
 			"id" : 16,
-			"name": "As of 2016, which country's parliament to women outnumber men?",
-		   "answer": "Rwanda",
-		   "choices" : ["Canada", "Scotland", "Rwanda", "Bolivia"]
+			"name": "This scientist created the first 'handshake' between computers that would later become the internet",
+		   "answer": "Tim Berners-Lee",
+		   "choices" : ["Al Gore", "Anita Hill", "Tim Berners-Lee", "Bill Gates"],
+		   "prize": 5
 		},
 		{
 			"id" : 17,
-			"name": "Who wrote the 1975 sci-fi epic 'Dhalgren'?",
-		   "answer": "Samuel R Delaney",
-		   "choices" : ["Samuel R Delaney", "Octavia Butler", "Thomas Pynchon", "Philip K Dick"]
+			"name": "Who as a high school student hacked into his school's grade server to give himself all As?",
+		   "answer": "Bill Gates",
+		   "choices" : ["Steve Jobs", "Bill Gates", "Jon Carmack", "Philip K Dick"],
+		   "prize": 2
 		},
 		{
 			"id" : 18,
 			"name": "Which of the following is not a brand of hot sauce?",
 		   "answer": "Cuban Pete's",
-		   "choices" : ["Cholula", "Sriracha", "Cuban Pete's", "Gochujang"]
+		   "choices" : ["Cholula", "Sriracha", "Cuban Pete's", "Gochujang"],
+		   "prize": 99
 		}
 	]
 }
